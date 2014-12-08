@@ -20,11 +20,12 @@ namespace Projet_Bibliothèque_Livre_CD
         public Style Style { get; set; }
         public List<Musique> Musiques { get; set; }
 
-        public CD(int id, string titre, int nombreEnStock, string artiste, Style style)
+        public CD(int id, string titre, int nombreEnStock, string artiste, Style style, List<Musique> musiques)
             : base(id, titre, nombreEnStock)
         {
             Artiste = artiste;
             Style = style;
+            Musiques = musiques;
         }
     }
 }
