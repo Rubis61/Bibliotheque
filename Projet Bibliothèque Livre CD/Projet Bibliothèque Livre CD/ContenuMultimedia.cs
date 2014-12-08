@@ -12,7 +12,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public string TitreAlbum { get; set; }
         public int NombreEnStock { get; set; }
 
-        ContenuMultimedia(int identifiantUnique, string titreAlbum, int nombreEnStock)
+        public ContenuMultimedia(int identifiantUnique, string titreAlbum, int nombreEnStock)
         {
             IdentifiantUnique = identifiantUnique;
             TitreAlbum = titreAlbum;
