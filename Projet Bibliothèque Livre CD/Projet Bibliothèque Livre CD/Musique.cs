@@ -10,5 +10,11 @@ namespace Projet_Bibliothèque_Livre_CD
     {
         public int Numero { get; set; }
         public string Titre { get; set; }
+
+        public Musique(string titre, int numéro)
+        {
+            Numero = numéro;
+            Titre = titre;
+        }
     }
 }

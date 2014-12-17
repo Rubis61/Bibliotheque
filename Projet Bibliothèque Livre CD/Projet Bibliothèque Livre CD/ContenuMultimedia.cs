@@ -9,13 +9,13 @@ namespace Projet_Bibliothèque_Livre_CD
     class ContenuMultimedia
     {
         public int IdentifiantUnique { get; set; }
-        public string TitreAlbum { get; set; }
+        public string Titre { get; set; }
         public int NombreEnStock { get; set; }
 
-        public ContenuMultimedia(int identifiantUnique, string titreAlbum, int nombreEnStock)
+        public ContenuMultimedia(int identifiantUnique, string titre, int nombreEnStock)
         {
             IdentifiantUnique = identifiantUnique;
-            TitreAlbum = titreAlbum;
+            Titre = titre;
             NombreEnStock = nombreEnStock;
         }
     }

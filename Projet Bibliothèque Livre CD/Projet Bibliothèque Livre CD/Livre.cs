@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    class Livre
+    public enum GenreDuLivre {Drame, Policier, Culturel, Religieux};
+
+    class Livre : ContenuMultimedia
     {
         public string NumeroISBN { get; set; }
         public string AuteurDuLivre { get; set; }
-        public enum GenreDuLivre {Drame, Policier, Culturel, Religieux};
 
-        Livre(string numeroISBN, string auteurDuLivre)
+        public GenreDuLivre Genre { get; set; }
+
+        public Livre(int id, string titre, int nombreEnStock, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
+            : base(id, titre, nombreEnStock)
         {
             NumeroISBN = numeroISBN;
             AuteurDuLivre = auteurDuLivre;
+            Genre = genre;
         }
     }
 }
