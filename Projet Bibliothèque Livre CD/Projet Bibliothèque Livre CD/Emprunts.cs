@@ -12,7 +12,10 @@ namespace Projet_Bibliothèque_Livre_CD
         public List<CD> CDEmpruntés { get; set; }
 
         public Emprunts()
-        {  }
+        {
+            LivresEmpruntés = new List<Livre>();
+            CDEmpruntés = new List<CD>();
+        }
 
         public void ajouterLivre(Livre livre)
         {

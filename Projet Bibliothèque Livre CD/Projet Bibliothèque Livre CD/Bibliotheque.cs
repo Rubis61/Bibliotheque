@@ -39,6 +39,18 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
+        private void ajouterCD(CD cdAajouter)
+        {
+            if (ListCD.Where(livre => livre.Titre == cdAajouter.Titre).Count() >= 1)
+            {
+                ListCD.Single(livre => livre.Titre == cdAajouter.Titre).NombreEnStock++;
+            }
+            else
+            {
+                ListCD.Add(cdAajouter);
+            }
+        }
+
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
             int idNouveauLivre = ListLivres.Count;
@@ -54,11 +66,23 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
+        private void ajouterLivre(Livre livreAajouter)
+        {
+            if (ListLivres.Where(livre => livre.Titre == livreAajouter.Titre).Count() >= 1)
+            {
+                ListLivres.Single(livre => livre.Titre == livreAajouter.Titre).NombreEnStock++;
+            }
+            else
+            {
+                ListLivres.Add(livreAajouter);
+            }
+        }
+
         public CD rechercherCD(string titre)
         {
             try
             {
-                return ListCD.Single(cd => cd.Titre == titre);
+                return ListCD.SingleOrDefault(cd => cd.Titre == titre);
             }
             catch (InvalidOperationException e)
             {
@@ -74,7 +98,7 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             try
             {
-                return ListLivres.Single(livre => livre.Titre == titre);
+                return ListLivres.SingleOrDefault(livre => livre.Titre == titre);
             }
             catch (InvalidOperationException e)
             {
@@ -89,6 +113,8 @@ namespace Projet_Bibliothèque_Livre_CD
         public bool emprunterCD(string titre)
         {
             CD cdAEmprunter = rechercherCD(titre);
+
+            if (cdAEmprunter == null) return false; // Le CD n'a pas été trouvé
 
             emprunts.ajouterCD(cdAEmprunter);
 
@@ -107,6 +133,8 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             Livre livreAEmprunter = rechercherLivre(titre);
 
+            if (livreAEmprunter == null) return false; // Le Livre n'a pas été trouvé
+
             emprunts.ajouterLivre(livreAEmprunter);
 
             if (ListCD.Where(cd => cd.Titre == livreAEmprunter.Titre).Count() >= 1)
@@ -118,6 +146,22 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 return false;
             }
+        }
+
+        public void restituerCD(string titre)
+        {
+            CD cdARestituer = emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
+
+            ajouterCD(cdARestituer);
+            emprunts.CDEmpruntés.Remove(cdARestituer);
+        }
+
+        public void restituerLivre(string titre)
+        {
+            Livre livreARestituer = emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
+
+            ajouterLivre(livreARestituer);
+            emprunts.LivresEmpruntés.Remove(livreARestituer);
         }
     }
 }
