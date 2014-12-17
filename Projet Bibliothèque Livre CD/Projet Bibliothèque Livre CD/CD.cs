@@ -27,5 +27,10 @@ namespace Projet_Bibliothèque_Livre_CD
             Style = style;
             Musiques = musiques;
         }
+
+        public static string[] getStylesDisponibles()
+        {
+            return Enum.GetNames(typeof(Style));
+        }
     }
 }

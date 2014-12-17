@@ -22,5 +22,10 @@ namespace Projet_Bibliothèque_Livre_CD
             AuteurDuLivre = auteurDuLivre;
             Genre = genre;
         }
+
+        public static string[] getGenresDisponibles()
+        {
+            return Enum.GetNames(typeof(GenreDuLivre));
+        }
     }
 }
