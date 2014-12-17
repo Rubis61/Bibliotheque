@@ -11,6 +11,12 @@ namespace Projet_Bibliothèque_Livre_CD
         public List<CD> ListCD { get; set; }
         public List<Livre> ListLivres { get; set; }
 
+        public Bibliotheque()
+        {
+            ListCD = new List<CD>();
+            ListLivres = new List<Livre>();
+        }
+
         public Bibliotheque(List<CD> listCD, List<Livre> listLivres)
         {
             ListCD = listCD;
@@ -22,9 +28,19 @@ namespace Projet_Bibliothèque_Livre_CD
             ListCD.Add(cd);
         }
 
-        public void ajouterLivre(Livre livre)
+        public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
-            ListLivres.Add(livre);
+            int idNouveauLivre = ListLivres.Count;
+            Livre nouveauLivre = new Livre(idNouveauLivre, titre, 1, numeroISBN,auteurDuLivre,genre);
+
+            if( ListLivres.Where(livre => livre.Titre == nouveauLivre.Titre).Count() >= 1 )
+            {
+                ListLivres.Single(livre => livre.Titre == nouveauLivre.Titre).NombreEnStock++;
+            }
+            else
+            {
+                ListLivres.Add(nouveauLivre);
+            }
         }
 
         public CD rechercherCD(string titre)
@@ -34,7 +50,18 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public Livre rechercherLivre(string titre)
         {
-            return ListLivres.Single(livre => livre.Titre == titre);
+            try
+            {
+                return ListLivres.Single(livre => livre.Titre == titre);
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
