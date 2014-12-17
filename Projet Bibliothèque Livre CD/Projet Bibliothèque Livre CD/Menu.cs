@@ -66,11 +66,13 @@ namespace Projet_Bibliothèque_Livre_CD
             string auteur = Console.ReadLine();
 
             Console.WriteLine("Quel est le genre du livre?");
+
             string genre = Console.ReadLine();
 
             Console.WriteLine("Quel est le numéro ISBN du livre?");
             string ISBN = Console.ReadLine();
 
+            //bibliotheque.ajouterLivre(titre, ISBN, auteur, (GenreDuLivre)Enum.Parse(typeof(GenreDuLivre), genre));
             
             Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec comme genre " + genre + " avec comme numéro ISBN " + ISBN);
             Console.WriteLine("Appuyer sur une touche pour continuer...");
