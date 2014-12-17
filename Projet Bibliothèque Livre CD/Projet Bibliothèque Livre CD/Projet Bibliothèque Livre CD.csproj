@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Bibliotheque.cs" />
     <Compile Include="CD.cs" />
+    <Compile Include="Emprunts.cs" />
     <Compile Include="Musique.cs" />
     <Compile Include="ContenuMultimedia.cs" />
     <Compile Include="Livre.cs" />

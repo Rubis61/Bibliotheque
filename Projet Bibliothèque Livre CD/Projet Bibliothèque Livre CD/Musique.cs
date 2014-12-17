@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    class Musique
+    public class Musique
     {
         public int Numero { get; set; }
         public string Titre { get; set; }

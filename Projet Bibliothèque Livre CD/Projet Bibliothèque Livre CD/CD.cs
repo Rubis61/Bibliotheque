@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    enum Style
+    public enum Style
     {
         Classique = 0,
         Rock,
@@ -14,7 +14,7 @@ namespace Projet_Bibliothèque_Livre_CD
         // etc...
     }
 
-    class CD : ContenuMultimedia
+    public class CD : ContenuMultimedia
     {
         public string Artiste { get; set; }
         public Style Style { get; set; }

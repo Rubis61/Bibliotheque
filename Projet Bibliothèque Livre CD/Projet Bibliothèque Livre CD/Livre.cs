@@ -8,7 +8,7 @@ namespace Projet_Bibliothèque_Livre_CD
 {
     public enum GenreDuLivre {Drame, Policier, Culturel, Religieux};
 
-    class Livre : ContenuMultimedia
+    public class Livre : ContenuMultimedia
     {
         public string NumeroISBN { get; set; }
         public string AuteurDuLivre { get; set; }

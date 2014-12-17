@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    class Bibliotheque
+    public class Bibliotheque
     {
         public List<CD> ListCD { get; set; }
         public List<Livre> ListLivres { get; set; }
+        private Emprunts emprunts = new Emprunts();
 
         public Bibliotheque()
         {
@@ -23,9 +24,19 @@ namespace Projet_Bibliothèque_Livre_CD
             ListLivres = listLivres;
         }
 
-        public void ajouterCD(CD cd)
+        public void ajouterCD(string titre, string artiste, Style style, List<Musique> musiques)
         {
-            ListCD.Add(cd);
+            int idNouveauCd = ListCD.Count;
+            CD nouveauCD = new CD(idNouveauCd, titre, 1, artiste, style, musiques);
+
+            if (ListCD.Where(cd => cd.Titre == nouveauCD.Titre).Count() >= 1)
+            {
+                ListCD.Single(cd => cd.Titre == nouveauCD.Titre).NombreEnStock++;
+            }
+            else
+            {
+                ListCD.Add(nouveauCD);
+            }
         }
 
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
@@ -45,7 +56,18 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public CD rechercherCD(string titre)
         {
-            return ListCD.Single(cd => cd.Titre == titre);
+            try
+            {
+                return ListCD.Single(cd => cd.Titre == titre);
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public Livre rechercherLivre(string titre)
