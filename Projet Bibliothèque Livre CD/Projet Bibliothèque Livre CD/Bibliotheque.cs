@@ -85,5 +85,39 @@ namespace Projet_Bibliothèque_Livre_CD
                 return null;
             }
         }
+
+        public bool emprunterCD(string titre)
+        {
+            CD cdAEmprunter = rechercherCD(titre);
+
+            emprunts.ajouterCD(cdAEmprunter);
+
+            if (ListCD.Where(cd => cd.Titre == cdAEmprunter.Titre).Count() >= 1)
+            { // Si au moins un CD de disponible
+                ListCD.Single(cd => cd.Titre == cdAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
+                return true;
+            }
+            else // Si pas de CD disponible
+            {
+                return false;
+            }
+        }
+
+        public bool emprunterLivre(string titre)
+        {
+            Livre livreAEmprunter = rechercherLivre(titre);
+
+            emprunts.ajouterLivre(livreAEmprunter);
+
+            if (ListCD.Where(cd => cd.Titre == livreAEmprunter.Titre).Count() >= 1)
+            { // Si au moins un CD de disponible
+                ListCD.Single(cd => cd.Titre == livreAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
+                return true;
+            }
+            else // Si pas de CD disponible
+            {
+                return false;
+            }
+        }
     }
 }
