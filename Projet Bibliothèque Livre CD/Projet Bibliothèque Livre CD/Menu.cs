@@ -72,6 +72,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est le numéro ISBN du livre?");
             string ISBN = Console.ReadLine();
 
+            //string[] genreDisponible 
             //bibliotheque.ajouterLivre(titre, ISBN, auteur, (GenreDuLivre)Enum.Parse(typeof(GenreDuLivre), genre));
             
             Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec comme genre " + genre + " avec comme numéro ISBN " + ISBN);
