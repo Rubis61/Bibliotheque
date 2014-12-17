@@ -10,6 +10,7 @@ namespace Projet_Bibliothèque_Livre_CD
     {
         public static string choixUtilisateur;
         public static string finDuProgramme;
+        public static Bibliotheque bibliotheque = new Bibliotheque();
         public static bool AfficherMenu()
         {
             do
@@ -57,9 +58,22 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             Console.WriteLine("Vous voulez ajouter un livre à la bibliothèque");
             Console.WriteLine();
-            Console.WriteLine("Quel est le titre?");
 
+            Console.WriteLine("Quel est le titre du livre?");
+            string titre = Console.ReadLine();
 
+            Console.WriteLine("Quel est l'auteur du livre?");
+            string auteur = Console.ReadLine();
+
+            Console.WriteLine("Quel est le genre du livre?");
+            string genre = Console.ReadLine();
+
+            Console.WriteLine("Quel est le numéro ISBN du livre?");
+            string ISBN = Console.ReadLine();
+
+            
+            Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec comme genre " + genre + " avec comme numéro ISBN " + ISBN);
+            Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
         }
         public static void RamenerUnLivre()
