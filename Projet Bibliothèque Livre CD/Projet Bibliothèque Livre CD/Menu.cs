@@ -58,17 +58,59 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         public void EmprunterUnLivre()
         {
-            Co
-            bibliotheque.emprunterLivre()
+            bool erreur;
+            do
+            {
+                Console.WriteLine("Vous voulez emprunter un livre.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du livre que vous voulez emprunter? (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                erreur = bibliotheque.emprunterLivre(saisiUtilisateur);
+                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    break;
+                }
+            }
+            while (erreur == false);
+            Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était emprunter");
         }
         public void RamenerUnLivre()
         {
-            Console.WriteLine("Ramener un livre");
+            bool erreur;
+            do
+            {
+                Console.WriteLine("Vous voulez ramenner un livre.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du livre que vous voulez rapporter? (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                erreur = bibliotheque.restituerLivre(saisiUtilisateur);
+                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    break;
+                }
+            }
+            while (erreur == false);
+            Console.WriteLine("Le livre " + saisiUtilisateur + " a bien était rapporté");
             Console.ReadLine();
         }
         public void RechercherLivreParTitre()
         {
-            Console.WriteLine("Bibliothèque");
+            Livre livre;
+            do
+            {
+                Console.WriteLine("Vous voulez rechercher un livre par son titre.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du livre que vous voulez rechercher (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                livre = bibliotheque.rechercherLivre(saisiUtilisateur); ;
+
+                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    break;
+                }
+            }
+            while (livre == null);
+            Console.WriteLine("Le livre " + saisiUtilisateur + " a bien était trouvé");
             Console.ReadLine();
         }
         public void AjouterUnCd()
@@ -81,8 +123,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
             Console.WriteLine("Quel est l'artiste du CD?");
             string artiste = Console.ReadLine();
+
             List<Musique> maListe = CD.remplirListeDeMusique();
             bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
+
             Console.WriteLine();
             Console.WriteLine("Le CD " + titre + " de l'artiste " + artiste + " a bien était");
             Console.WriteLine(" ajouté avec comme style " + saisiUtilisateur + " et comme musiques : ");
@@ -103,23 +147,55 @@ namespace Projet_Bibliothèque_Livre_CD
                 Console.WriteLine();
                 Console.WriteLine("Quel est le titre du CD que vous voulez emprunter? (Tapez 'retour' pour annuler)");
                 saisiUtilisateur = Console.ReadLine().ToString();
-                erreur = bibliotheque.emprunterLivre(saisiUtilisateur);
+                erreur = bibliotheque.emprunterCD(saisiUtilisateur);
+
                 if(saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
                 {
-                    Application.VoulezVousContinuez();
+                    break;
                 }
             }
             while (erreur == false);
             Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était emprunter");
+            Console.ReadLine();
         }
         public void RamenerUnCd()
         {
-            Console.WriteLine("Bibliothèque");
+            bool erreur;
+            do
+            {
+                Console.WriteLine("Vous voulez ramenner un CD.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du CD que vous voulez rapporter? (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                erreur = bibliotheque.restituerCD(saisiUtilisateur);
+                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    break;
+                }
+            }
+            while (erreur == false);
+            Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était rapporté");
             Console.ReadLine();
+
         }
         public void RechercherCDParTitre()
         {
-            Console.WriteLine("Bibliothèque");
+            CD cd;
+            do
+            {
+                Console.WriteLine("Vous voulez rechercher un CD par son titre.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du CD que vous voulez rechercher (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                cd = bibliotheque.rechercherCD(saisiUtilisateur);
+
+                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    break;
+                }
+            }
+            while (cd == null);
+            Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était trouvé");
             Console.ReadLine();
         }
 

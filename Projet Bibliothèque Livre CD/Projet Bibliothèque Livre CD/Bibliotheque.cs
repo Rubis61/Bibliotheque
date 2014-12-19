@@ -148,20 +148,24 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public void restituerCD(string titre)
+        public bool restituerCD(string titre)
         {
             CD cdARestituer = emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
 
             ajouterCD(cdARestituer);
             emprunts.CDEmpruntés.Remove(cdARestituer);
+
+            return false; // Juste pour que mon code soit juste, faudra faire la boucle
+
         }
 
-        public void restituerLivre(string titre)
+        public bool restituerLivre(string titre)
         {
             Livre livreARestituer = emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
 
             ajouterLivre(livreARestituer);
             emprunts.LivresEmpruntés.Remove(livreARestituer);
+            return false; // Juste pour que mon code soit juste, faudra faire la boucle
         }
     }
 }
