@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
     <Compile Include="Bibliotheque.cs" />
     <Compile Include="CD.cs" />
     <Compile Include="Emprunts.cs" />
