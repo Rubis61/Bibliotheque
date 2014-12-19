@@ -9,11 +9,14 @@ namespace Projet_Bibliothèque_Livre_CD
     public class Menu
     {
         public Bibliotheque bibliotheque = new Bibliotheque();
+        public string saisiUtilisateur { get; set; }
+
         public void AfficherMenu()
         {
 
             Console.Clear();
             Console.WriteLine("Que voulez-vous faire?");
+            Console.WriteLine();
             Console.WriteLine("1 - Lister la bibliothèque");
             Console.WriteLine("2 - Ajouter un livre");
             Console.WriteLine("3 - Ramener un livre");
@@ -45,8 +48,9 @@ namespace Projet_Bibliothèque_Livre_CD
             string ISBN = Console.ReadLine();
 
             bibliotheque.ajouterLivre(titre, ISBN, auteur, AfficherEtSaisirGenreDuLivre());
-
-            Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec comme genre " + " avec comme numéro ISBN " + ISBN);
+            Console.WriteLine();
+            Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec ");
+            Console.WriteLine("comme genre " + saisiUtilisateur + " avec comme numéro ISBN " + ISBN);
             Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
         }
@@ -62,7 +66,25 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         public void AjouterUnCd()
         {
-            Console.WriteLine("Bibliothèque");
+            Console.WriteLine("Vous voulez ajouter un CD à la bibliothèque");
+            Console.WriteLine();
+
+            Console.WriteLine("Quel est le titre de l'album?");
+            string titre = Console.ReadLine();
+
+            Console.WriteLine("Quel est l'artiste du CD?");
+            string artiste = Console.ReadLine();
+            List<Musique> maListe = CD.remplirListeDeMusique();
+            bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
+            Console.WriteLine();
+            Console.WriteLine("Le CD " + titre + " de l'artiste " + artiste + " a bien était");
+            Console.WriteLine(" ajouté avec comme style " + saisiUtilisateur + " et comme musiques : ");
+            int i = 0;
+            maListe.ForEach(delegate(Musique musique)
+            {
+                Console.WriteLine(i++ + " - " + musique.Titre);
+            });
+            Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
         }
         public void RamenerUnCd()
@@ -78,26 +100,40 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()
         {
-            Console.WriteLine("Quel est le genre du livre?");
-            Console.WriteLine();
-            Console.WriteLine("Tapez le genre de votre livre");
-            Console.WriteLine();
 
-            string saisieUtilisateur;
+            Console.WriteLine("Quel est le genre du livre?");
+
             string[] genreDisponible = Livre.getGenresDisponibles();
 
             do
             {
-              Console.Clear();
               for (int i = 0; i < genreDisponible.Count(); i ++)
               {
-                 Console.WriteLine(genreDisponible[i]);
+                 Console.WriteLine(" - " + genreDisponible[i]);
               }
-              saisieUtilisateur = Console.ReadLine().ToString();
+              saisiUtilisateur = Console.ReadLine().ToString();
             }
-            while(!genreDisponible.Contains(saisieUtilisateur));
+            while(!genreDisponible.Contains(saisiUtilisateur));
 
-            return (GenreDuLivre)Enum.Parse(typeof(GenreDuLivre), saisieUtilisateur);
+            return (GenreDuLivre)Enum.Parse(typeof(GenreDuLivre), saisiUtilisateur);
         }
+        public Style AfficherEtSaisirStyleDuCD()
+        {
+            Console.WriteLine("Quel est le genre de l'album?");
+            string[] styleDisponible = CD.getStylesDisponibles();
+            do
+            {
+                
+                for (int i = 0; i < styleDisponible.Count(); i++)
+                {
+                    Console.WriteLine(" - " + styleDisponible[i]);
+                }
+                saisiUtilisateur = Console.ReadLine().ToString();
+            }
+            while (!styleDisponible.Contains(saisiUtilisateur));
+
+            return (Style)Enum.Parse(typeof(Style), saisiUtilisateur);
+        }
+
     }
 }
