@@ -19,11 +19,13 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             Console.WriteLine("1 - Lister la bibliothèque");
             Console.WriteLine("2 - Ajouter un livre");
-            Console.WriteLine("3 - Ramener un livre");
-            Console.WriteLine("4 - Rechercher un livre par son titre");
-            Console.WriteLine("5 - Ajouter un CD");
-            Console.WriteLine("6 - Ramener un CD");
-            Console.WriteLine("7 - Rechercher un CD par son titre");
+            Console.WriteLine("3 - Emprunter un livre");
+            Console.WriteLine("4 - Ramener un livre");
+            Console.WriteLine("5 - Rechercher un livre par son titre");
+            Console.WriteLine("6 - Ajouter un CD");
+            Console.WriteLine("7 - Emprunter un CD");
+            Console.WriteLine("8 - Ramener un CD");
+            Console.WriteLine("9 - Rechercher un CD par son titre");
             Console.WriteLine();
         }
 
@@ -53,6 +55,11 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("comme genre " + saisiUtilisateur + " avec comme numéro ISBN " + ISBN);
             Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
+        }
+        public void EmprunterUnLivre()
+        {
+            Co
+            bibliotheque.emprunterLivre()
         }
         public void RamenerUnLivre()
         {
@@ -86,6 +93,24 @@ namespace Projet_Bibliothèque_Livre_CD
             });
             Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
+        }
+        public void EmprunterUnCD()
+        {
+            bool erreur;
+            do
+            {
+                Console.WriteLine("Vous voulez emprunter un CD.");
+                Console.WriteLine();
+                Console.WriteLine("Quel est le titre du CD que vous voulez emprunter? (Tapez 'retour' pour annuler)");
+                saisiUtilisateur = Console.ReadLine().ToString();
+                erreur = bibliotheque.emprunterLivre(saisiUtilisateur);
+                if(saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                {
+                    Application.VoulezVousContinuez();
+                }
+            }
+            while (erreur == false);
+            Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était emprunter");
         }
         public void RamenerUnCd()
         {

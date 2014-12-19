@@ -136,13 +136,13 @@ namespace Projet_Bibliothèque_Livre_CD
             if (livreAEmprunter == null) return false; // Le Livre n'a pas été trouvé
 
             emprunts.ajouterLivre(livreAEmprunter);
-
+            
             if (ListCD.Where(cd => cd.Titre == livreAEmprunter.Titre).Count() >= 1)
-            { // Si au moins un CD de disponible
+            { // Si au moins un livre de disponible
                 ListCD.Single(cd => cd.Titre == livreAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
                 return true;
             }
-            else // Si pas de CD disponible
+            else // Si pas de livre disponible
             {
                 return false;
             }
