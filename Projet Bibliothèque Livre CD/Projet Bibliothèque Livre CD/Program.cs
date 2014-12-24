@@ -12,10 +12,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
         static void Main(string[] args)
         {
-            /*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
-            while (Menu.AfficherMenu() == true)
+            //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
+            while (Application.RunApplication() == true)
             {
-                Menu.AfficherMenu();
+                Application.RunApplication();
             }
             /*/
             //////////////////////////////////////////////-Test 1-////////////////////////////////////////////////////////////////////

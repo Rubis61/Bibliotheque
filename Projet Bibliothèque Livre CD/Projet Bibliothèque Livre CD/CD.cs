@@ -32,5 +32,30 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             return Enum.GetNames(typeof(Style));
         }
+        
+        public static List<Musique> remplirListeDeMusique()
+        {
+            bool result;
+            string valeur;
+            int intParse;
+            List<Musique> maListe = new List<Musique>();
+
+            do
+            {
+                Console.WriteLine("Combien y'a t'il de musique dans votre album ( 1 a 12 )");
+                valeur = Console.ReadLine().ToString();
+                result = Int32.TryParse(valeur, out intParse);
+            }
+            while(result == false || intParse >= 12);
+
+            for(int i = 0; i < intParse; i++)
+            {
+                int y = i + 1;
+                Console.WriteLine("Quel est le titre de la musique " + y);
+                Musique maMusique = new Musique(Console.ReadLine().ToString(), i);
+                maListe.Add(maMusique);
+            }
+            return maListe;
+        }
     }
 }

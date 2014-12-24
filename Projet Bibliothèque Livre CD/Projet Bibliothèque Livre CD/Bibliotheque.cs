@@ -136,13 +136,13 @@ namespace Projet_Bibliothèque_Livre_CD
             if (livreAEmprunter == null) return false; // Le Livre n'a pas été trouvé
 
             emprunts.ajouterLivre(livreAEmprunter);
-
+            
             if (ListCD.Where(cd => cd.Titre == livreAEmprunter.Titre).Count() >= 1)
-            { // Si au moins un CD de disponible
+            { // Si au moins un livre de disponible
                 ListCD.Single(cd => cd.Titre == livreAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
                 return true;
             }
-            else // Si pas de CD disponible
+            else // Si pas de livre disponible
             {
                 return false;
             }
@@ -152,24 +152,20 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             CD cdARestituer = emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
 
-            if (cdARestituer == null) return false; // Le Livre n'a pas été trouvé
-
             ajouterCD(cdARestituer);
             emprunts.CDEmpruntés.Remove(cdARestituer);
 
-            return true;
+            return false; // Juste pour que mon code soit juste, faudra faire la boucle
+
         }
 
         public bool restituerLivre(string titre)
         {
             Livre livreARestituer = emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
 
-            if (livreARestituer == null) return false; // Le Livre n'a pas été trouvé
-
             ajouterLivre(livreARestituer);
             emprunts.LivresEmpruntés.Remove(livreARestituer);
-
-            return true;
+            return false; // Juste pour que mon code soit juste, faudra faire la boucle
         }
     }
 }
