@@ -20,12 +20,17 @@ namespace Projet_Bibliothèque_Livre_CD
         //quand t'emprunte un CD ou un livre le stock est pas géré, tu peux emprunter 40 fois le truk
         //      - FAIT!
         //tester si le livre / CD existe avant de le restituer? (class Bibliotheque / méthode restituer CD et restituer Livre
-        // Bug lors de l'emprunt cela emprunte le même nombre de disponible
+        // Emprunt d'un Livre/CD par évênement, cf : Consigne
 
         /// Je m'aventure dans ton code !
         /// Lister la bibliothèque
         /// Cohérence nom de méthode/contenu (ex: VoulezVousContinuez? et Voulez vous arrêter?)
         /// Gérer le retour de "emprunterLivre" et "emprunterCD", est ce que l'on gère 3 états ? genre true = emprunté, false = nombre pas disponible et null = livre non trouvé ?
         /// Parfois le programme ne s'arrete pas lorsque je fais "o" dans "VoulezVousContinuez" --> je l'ai corrigé ! cf : boucle principale dans Program
+        /// 
+
+        /// APRES TOUT CA
+        /// Gestion de la sauvegarde/restauration par fichier ou par BDD
+        /// Système de LOG ?!?!
     }
 }
