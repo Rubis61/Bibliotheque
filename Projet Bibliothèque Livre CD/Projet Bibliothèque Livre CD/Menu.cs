@@ -32,6 +32,34 @@ namespace Projet_Bibliothèque_Livre_CD
         public void ListerLaBibliotheque()
         {
             Console.WriteLine("Bibliothèque");
+
+            Console.WriteLine("///////////////////////////////DISPONIBLES///////////////////////////////");
+            Console.WriteLine("CDs : ");
+            foreach (var cd in bibliotheque.ListCD)
+            {
+                Console.WriteLine(cd.ToString());
+            }
+            Console.WriteLine();
+            Console.WriteLine("Livres : ");
+            foreach (var livre in bibliotheque.ListLivres)
+            {
+                Console.WriteLine(livre.ToString());
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("///////////////////////////////EMPRUNTS//////////////////////////////////");
+            Console.WriteLine("CDs : ");
+            foreach (var cd in bibliotheque.Emprunts.CDEmpruntés)
+            {
+                Console.WriteLine(cd.ToString());
+            }
+            Console.WriteLine();
+            Console.WriteLine("Livres : ");
+            foreach (var livre in bibliotheque.Emprunts.LivresEmpruntés)
+            {
+                Console.WriteLine(livre.ToString());
+            }
+
             Console.ReadLine();
         }
 

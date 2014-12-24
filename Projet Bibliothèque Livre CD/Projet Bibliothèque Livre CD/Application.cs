@@ -58,6 +58,15 @@ namespace Projet_Bibliothèque_Livre_CD
             else return true;
         }
         
+        public static void générerDonnées()
+        {
+            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
+            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
+            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
 
+            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
+            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
+            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
+        }
     }
 }

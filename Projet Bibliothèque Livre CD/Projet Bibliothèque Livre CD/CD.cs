@@ -28,6 +28,24 @@ namespace Projet_Bibliothèque_Livre_CD
             Musiques = musiques;
         }
 
+        /// <summary>
+        /// Constructeur de copie
+        /// </summary>
+        /// <param name="cd"></param>
+        public CD(CD cd)
+            : base(cd.IdentifiantUnique, cd.Titre, cd.NombreEnStock)
+        {
+            Artiste = cd.Artiste;
+            Style = cd.Style;
+            Musiques = cd.Musiques;
+        }
+
+        public override string ToString()
+        {
+            return "Titre : " + Titre + ", Nombre : " + NombreEnStock + ", Artiste : " + Artiste +
+                   ", Style : " + Style.ToString();
+        }
+
         public static string[] getStylesDisponibles()
         {
             return Enum.GetNames(typeof(Style));

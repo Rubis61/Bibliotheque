@@ -10,18 +10,20 @@ namespace Projet_Bibliothèque_Livre_CD
     {
         public List<CD> ListCD { get; set; }
         public List<Livre> ListLivres { get; set; }
-        private Emprunts emprunts = new Emprunts();
+        public Emprunts Emprunts { get; set; }
 
         public Bibliotheque()
         {
             ListCD = new List<CD>();
             ListLivres = new List<Livre>();
+            Emprunts = new Emprunts();
         }
 
-        public Bibliotheque(List<CD> listCD, List<Livre> listLivres)
+        public Bibliotheque(List<CD> listCD, List<Livre> listLivres, Emprunts emprunts)
         {
             ListCD = listCD;
             ListLivres = listLivres;
+            Emprunts = emprunts;
         }
 
         public void ajouterCD(string titre, string artiste, Style style, List<Musique> musiques)
@@ -41,9 +43,9 @@ namespace Projet_Bibliothèque_Livre_CD
 
         private void ajouterCD(CD cdAajouter)
         {
-            if (ListCD.Where(livre => livre.Titre == cdAajouter.Titre).Count() >= 1)
+            if (ListCD.Where(cd => cd.Titre == cdAajouter.Titre).Count() >= 1)
             {
-                ListCD.Single(livre => livre.Titre == cdAajouter.Titre).NombreEnStock++;
+                ListCD.Single(cd => cd.Titre == cdAajouter.Titre).NombreEnStock++;
             }
             else
             {
@@ -116,11 +118,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
             if (cdAEmprunter == null) return false; // Le CD n'a pas été trouvé
 
-            emprunts.ajouterCD(cdAEmprunter);
-
-            if (ListCD.Where(cd => cd.Titre == cdAEmprunter.Titre).Count() >= 1)
+            if (cdAEmprunter.NombreEnStock >= 1)
             { // Si au moins un CD de disponible
-                ListCD.Single(cd => cd.Titre == cdAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
+                cdAEmprunter.NombreEnStock--; // Prise du CD en stock
+                Emprunts.ajouterCD(cdAEmprunter); // Emprunt du CD
                 return true;
             }
             else // Si pas de CD disponible
@@ -135,11 +136,12 @@ namespace Projet_Bibliothèque_Livre_CD
 
             if (livreAEmprunter == null) return false; // Le Livre n'a pas été trouvé
 
-            emprunts.ajouterLivre(livreAEmprunter);
-            
-            if (ListCD.Where(cd => cd.Titre == livreAEmprunter.Titre).Count() >= 1)
+            if (livreAEmprunter.NombreEnStock >= 1)
             { // Si au moins un livre de disponible
-                ListCD.Single(cd => cd.Titre == livreAEmprunter.Titre).NombreEnStock--; // Prise du CD en stock
+                //Livre livreTrouvé = ListLivres.Single(livre => livre.Titre == livreAEmprunter.Titre);
+
+                livreAEmprunter.NombreEnStock--; // Prise du Livre en stock
+                Emprunts.ajouterLivre(livreAEmprunter); // Emprunt du Livre
                 return true;
             }
             else // Si pas de livre disponible
@@ -150,10 +152,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool restituerCD(string titre)
         {
-            CD cdARestituer = emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
+            CD cdARestituer = Emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
 
             ajouterCD(cdARestituer);
-            emprunts.CDEmpruntés.Remove(cdARestituer);
+            Emprunts.CDEmpruntés.Remove(cdARestituer);
 
             return false; // Juste pour que mon code soit juste, faudra faire la boucle
 
@@ -161,10 +163,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool restituerLivre(string titre)
         {
-            Livre livreARestituer = emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
+            Livre livreARestituer = Emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
 
             ajouterLivre(livreARestituer);
-            emprunts.LivresEmpruntés.Remove(livreARestituer);
+            Emprunts.LivresEmpruntés.Remove(livreARestituer);
             return false; // Juste pour que mon code soit juste, faudra faire la boucle
         }
     }

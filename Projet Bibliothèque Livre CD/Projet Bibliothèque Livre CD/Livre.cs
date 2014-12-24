@@ -23,6 +23,24 @@ namespace Projet_Bibliothèque_Livre_CD
             Genre = genre;
         }
 
+        /// <summary>
+        /// Constructeur de copie
+        /// </summary>
+        /// <param name="livre"></param>
+        public Livre(Livre livre)
+            : base(livre.IdentifiantUnique, livre.Titre, livre.NombreEnStock)
+        {
+            NumeroISBN = livre.NumeroISBN;
+            AuteurDuLivre = livre.AuteurDuLivre;
+            Genre = livre.Genre;
+        }
+
+        public override string ToString()
+        {
+            return "Titre : " + Titre + ", Nombre : " + NombreEnStock + ", Auteur : " + AuteurDuLivre +
+                   ", Genre : " + Genre.ToString();
+        }
+
         public static string[] getGenresDisponibles()
         {
             return Enum.GetNames(typeof(GenreDuLivre));

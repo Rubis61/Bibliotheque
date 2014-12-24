@@ -8,15 +8,15 @@ namespace Projet_Bibliothèque_Livre_CD
 {
     class Program
     {
-        private static Bibliotheque bibliothèque = new Bibliotheque(new List<CD>(), new List<Livre>());
+        private static Bibliotheque bibliothèque = new Bibliotheque(new List<CD>(), new List<Livre>(), new Emprunts());
 
         static void Main(string[] args)
         {
             //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
-            while (Application.RunApplication() == true)
-            {
-                Application.RunApplication();
-            }
+            Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà serra fait par la base de données
+
+            while (Application.RunApplication()) ;
+
             /*/
             //////////////////////////////////////////////-Test 1-////////////////////////////////////////////////////////////////////
             // Test si lors de l'ajout d'un livre déja existant cela ajoute le nombre en stock de celui qui est dans la bibliothèque

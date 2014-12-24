@@ -17,14 +17,34 @@ namespace Projet_Bibliothèque_Livre_CD
             CDEmpruntés = new List<CD>();
         }
 
-        public void ajouterLivre(Livre livre)
+        public void ajouterLivre(Livre livreAajouter)
         {
-            LivresEmpruntés.Add(livre);
+            Livre nouveauLivre = new Livre(livreAajouter);
+            nouveauLivre.NombreEnStock = 1;
+
+            if (LivresEmpruntés.Where(livre => livre.Titre == nouveauLivre.Titre).Count() >= 1) // Si le livre est déja dans la liste de livres empruntés
+            {
+                LivresEmpruntés.Single(livre => livre.Titre == nouveauLivre.Titre).NombreEnStock++; // Ajout d'un en stock
+            }
+            else // Le livre n'existe pas déja
+            {
+                LivresEmpruntés.Add(nouveauLivre); // Ajout du nouveau livre
+            }
         }
 
-        public void ajouterCD(CD cd)
+        public void ajouterCD(CD cdAajouter)
         {
-            CDEmpruntés.Add(cd);
+            CD nouveauCD = new CD(cdAajouter);
+            nouveauCD.NombreEnStock = 1;
+
+            if (CDEmpruntés.Where(cd => cd.Titre == nouveauCD.Titre).Count() >= 1) // Si le cd est déja dans la liste de cds empruntés
+            {
+                CDEmpruntés.Single(cd => cd.Titre == nouveauCD.Titre).NombreEnStock++; // Ajout d'un en stock
+            }
+            else // Le cd n'existe pas déja
+            {
+                CDEmpruntés.Add(nouveauCD); // Ajout du nouveau cd
+            }
         }
 
         public void enleverCD(CD cd)
