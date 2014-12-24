@@ -50,8 +50,16 @@ namespace Projet_Bibliothèque_Livre_CD
             CD cd = bibliothèque.rechercherCD("456"); // récupération du livre en quadruple
             Console.WriteLine(cd.NombreEnStock); // Doit afficher 3
 
-            bibliothèque.emprunterCD("456"); // Doit être OK
-            bibliothèque.restituerCD("125"); // N'existe pas
+            bool OK = false;
+
+            OK = bibliothèque.emprunterCD("456"); // Doit être OK
+            Console.WriteLine("Emprunt CD 456 : " + (OK == true).ToString());
+
+            OK = bibliothèque.restituerCD("125"); // N'existe pas
+            Console.WriteLine("Restitution CD 125 : " + (OK==false).ToString());
+
+            OK = bibliothèque.restituerCD("456"); // Existe
+            Console.WriteLine("Restitution CD 456 : " + (OK == true).ToString());
 
             Console.ReadKey(); // Attend avant de fermer le programme
             //*/
