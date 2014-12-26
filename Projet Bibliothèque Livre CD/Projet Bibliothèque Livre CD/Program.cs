@@ -13,16 +13,26 @@ namespace Projet_Bibliothèque_Livre_CD
         static void Main(string[] args)
         {
             Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
-            
                 /*(sender, livre) => 
                     Console.WriteLine(livre.livreEmprunté.ToString());
                 */
+
+            Console.Write("Démarrage de l'application : ");
+
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write("█");
+                System.Threading.Thread.Sleep(100);
+            }
+
+            Console.Clear();
+
             //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
             Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà sera fait par la base de données
             
             while (Application.RunApplication()) ;
 
-            Console.Write("Sortie de l'application : ");
+            Console.Write("Arrêt de l'application : ");
             
             for( int i=0 ; i<20 ; i++ )
             {
