@@ -85,8 +85,9 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             Console.WriteLine("Le livre \"" + titre + "\" de l'auteur \"" + auteur + "\" a bien été ajouté avec ");
             Console.WriteLine("comme genre " + saisieUtilisateur.ToUpper() + " avec comme numéro ISBN \"" + ISBN + "\"");
-            Console.WriteLine("Appuyer sur une touche pour continuer...");
-            Console.ReadLine();
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
         }
         public void EmprunterUnLivre()
         {
@@ -100,7 +101,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 erreur = bibliotheque.emprunterLivre(saisieUtilisateur);
                 if (saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
                 {
-                    break;
+                    return;
                 }
             }
             while (erreur == false);
@@ -118,7 +119,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 if (saisieUtilisateur.ToLower() == "retour")
                 {
-                    break;
+                    return;
                 }
                 livreRamené = bibliotheque.restituerLivre(saisieUtilisateur);
                 if (livreRamené == false)
@@ -126,34 +127,87 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
                     Console.WriteLine();
                 }
+                else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
             }
             while (livreRamené == false);
-            
-            Console.WriteLine();
-            if (livreRamené == true) Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
 
-            if(saisieUtilisateur.ToLower() != "retour") Console.ReadLine();
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
         }
         public void RechercherLivreParTitre()
         {
             Livre livre;
+            Console.WriteLine("Vous voulez rechercher un livre par son titre.");
+            Console.WriteLine();
+
             do
             {
-                Console.WriteLine("Vous voulez rechercher un livre par son titre.");
-                Console.WriteLine();
                 Console.WriteLine("Quel est le titre du livre que vous voulez rechercher (Tapez 'retour' pour annuler)");
                 saisieUtilisateur = Console.ReadLine().ToString();
-                livre = bibliotheque.rechercherLivre(saisieUtilisateur); ;
 
-                if (saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
+                if (saisieUtilisateur.ToLower() == "retour")
                 {
-                    break;
+                    return;
+                }
+
+                livre = bibliotheque.rechercherLivre(saisieUtilisateur);
+
+                Console.WriteLine();
+
+                if (livre == null)
+                {
+                    Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("Le livre a bien été trouvé : ");
+                    Console.WriteLine("    " + livre.ToString());
                 }
             }
             while (livre == null);
-            Console.WriteLine("Le livre " + saisieUtilisateur + " a bien été trouvé");
-            Console.ReadLine();
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
         }
+
+        public void RechercherCDParTitre()
+        {
+            CD cd;
+            Console.WriteLine("Vous voulez rechercher un CD par son titre.");
+            Console.WriteLine();
+
+            do
+            {
+                Console.WriteLine("Quel est le titre du CD que vous voulez rechercher (Tapez 'retour' pour annuler)");
+                saisieUtilisateur = Console.ReadLine().ToString();
+
+                if (saisieUtilisateur.ToLower() == "retour")
+                {
+                    return;
+                }
+
+                cd = bibliotheque.rechercherCD(saisieUtilisateur);
+
+                Console.WriteLine();
+
+                if (cd == null)
+                {
+                    Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("Le CD a bien été trouvé : ");
+                    Console.WriteLine("    " + cd.ToString());
+                }
+            }
+            while (cd == null);
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
+        }
+
         public void AjouterUnCd()
         {
             Console.WriteLine("Vous voulez ajouter un CD à la bibliothèque");
@@ -193,11 +247,11 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 if(saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
                 {
-                    break;
+                    return;
                 }
             }
             while (erreur == false);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunter");
+            Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été emprunté");
             Console.ReadLine();
         }
         public void RamenerUnCd()
@@ -212,7 +266,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 if (saisieUtilisateur.ToLower() == "retour")
                 {
-                    break;
+                    return;
                 }
                 cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
                 if (cdRamené == false)
@@ -220,34 +274,12 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
                     Console.WriteLine();
                 }
+                else Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été rapporté");
             }
             while (cdRamené == false);
 
             Console.WriteLine();
-            if (cdRamené == true) Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été rapporté");
-
-
-            if (saisieUtilisateur.ToLower() != "retour") Console.ReadLine();
-        }
-        public void RechercherCDParTitre()
-        {
-            CD cd;
-            do
-            {
-                Console.WriteLine("Vous voulez rechercher un CD par son titre.");
-                Console.WriteLine();
-                Console.WriteLine("Quel est le titre du CD que vous voulez rechercher (Tapez 'retour' pour annuler)");
-                saisieUtilisateur = Console.ReadLine().ToString();
-                cd = bibliotheque.rechercherCD(saisieUtilisateur);
-
-                if (saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
-                {
-                    break;
-                }
-            }
-            while (cd == null);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été trouvé");
-            Console.ReadLine();
+            AppuyerSurUneTouchePourContinuer();
         }
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()
