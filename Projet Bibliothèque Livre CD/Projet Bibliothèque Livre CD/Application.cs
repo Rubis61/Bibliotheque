@@ -40,7 +40,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 case "0": return false;
             }
 
-            return VoulezVousContinuez();
+            return true;
+            //return VoulezVousContinuez();
         }
 
         public static bool VoulezVousContinuez()

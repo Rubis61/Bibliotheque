@@ -13,7 +13,7 @@ namespace Projet_Bibliothèque_Livre_CD
         static void Main(string[] args)
         {
             //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
-            Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà serra fait par la base de données
+            Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà sera fait par la base de données
             
             while (Application.RunApplication()) ;
 

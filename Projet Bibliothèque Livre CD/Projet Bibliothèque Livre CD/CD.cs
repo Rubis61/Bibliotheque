@@ -60,7 +60,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do
             {
-                Console.WriteLine("Combien y'a t'il de musique dans votre album ( 1 a 12 )");
+                Console.WriteLine("Combien y'a t'il de musique dans votre album ( 1 à 12 )");
                 valeur = Console.ReadLine().ToString();
                 result = Int32.TryParse(valeur, out intParse);
             }
@@ -70,7 +70,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 int y = i + 1;
                 Console.WriteLine("Quel est le titre de la musique " + y);
-                Musique maMusique = new Musique(Console.ReadLine().ToString(), i);
+                Musique maMusique = new Musique(Console.ReadLine().ToString(), i+1);
                 maListe.Add(maMusique);
             }
             return maListe;

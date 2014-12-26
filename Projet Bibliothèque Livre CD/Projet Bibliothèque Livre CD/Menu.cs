@@ -83,8 +83,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
             bibliotheque.ajouterLivre(titre, ISBN, auteur, AfficherEtSaisirGenreDuLivre());
             Console.WriteLine();
-            Console.WriteLine("Le livre " + titre + " de l'auteur " + auteur + " a bien était ajouté avec ");
-            Console.WriteLine("comme genre " + saisieUtilisateur + " avec comme numéro ISBN " + ISBN);
+            Console.WriteLine("Le livre \"" + titre + "\" de l'auteur \"" + auteur + "\" a bien été ajouté avec ");
+            Console.WriteLine("comme genre " + saisieUtilisateur.ToUpper() + " avec comme numéro ISBN \"" + ISBN + "\"");
             Console.WriteLine("Appuyer sur une touche pour continuer...");
             Console.ReadLine();
         }
@@ -104,7 +104,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (erreur == false);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien était emprunter");
+            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunter");
         }
         public void RamenerUnLivre()
         {
@@ -151,7 +151,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (livre == null);
-            Console.WriteLine("Le livre " + saisieUtilisateur + " a bien était trouvé");
+            Console.WriteLine("Le livre " + saisieUtilisateur + " a bien été trouvé");
             Console.ReadLine();
         }
         public void AjouterUnCd()
@@ -169,15 +169,16 @@ namespace Projet_Bibliothèque_Livre_CD
             bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
 
             Console.WriteLine();
-            Console.WriteLine("Le CD " + titre + " de l'artiste " + artiste + " a bien était");
-            Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur + " et comme musiques : ");
+            Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
+            Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
             int i = 0;
             maListe.ForEach(delegate(Musique musique)
             {
-                Console.WriteLine(i++ + " - " + musique.Titre);
+                Console.WriteLine(musique.Numero + " - " + musique.Titre);
             });
-            Console.WriteLine("Appuyer sur une touche pour continuer...");
-            Console.ReadLine();
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
         }
         public void EmprunterUnCD()
         {
@@ -196,7 +197,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (erreur == false);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien était emprunter");
+            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunter");
             Console.ReadLine();
         }
         public void RamenerUnCd()
@@ -245,7 +246,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (cd == null);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien était trouvé");
+            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été trouvé");
             Console.ReadLine();
         }
 
