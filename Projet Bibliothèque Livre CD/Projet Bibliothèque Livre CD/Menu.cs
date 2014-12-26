@@ -105,7 +105,11 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (erreur == false);
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunter");
+
+            //Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunté");
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
         }
         public void RamenerUnLivre()
         {

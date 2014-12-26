@@ -12,6 +12,16 @@ namespace Projet_Bibliothèque_Livre_CD
         public List<Livre> ListLivres { get; set; }
         public Emprunts Emprunts { get; set; }
 
+        public event EventHandler<EmpruntLivreEventArgs> livreEmprunté;
+
+        private void OnLivreEmprunté(EmpruntLivreEventArgs e)
+        {
+            if (livreEmprunté != null)
+            {
+                livreEmprunté(this, e);
+            }
+        }
+
         public Bibliotheque()
         {
             ListCD = new List<CD>();
@@ -142,6 +152,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 livreAEmprunter.NombreEnStock--; // Prise du Livre en stock
                 Emprunts.ajouterLivre(livreAEmprunter); // Emprunt du Livre
+
+                OnLivreEmprunté(new EmpruntLivreEventArgs(livreAEmprunter));
                 return true;
             }
             else // Si pas de livre disponible

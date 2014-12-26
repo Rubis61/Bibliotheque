@@ -11,7 +11,7 @@ namespace Projet_Bibliothèque_Livre_CD
     {
         public static string choixUtilisateur;
         public static string finDuProgramme;
-        static Menu menu = new Menu();
+        public static Menu menu = new Menu();
         public static bool RunApplication()
         {
             do
@@ -36,7 +36,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 case "6": menu.AjouterUnCd();                break;
                 case "7": menu.EmprunterUnCD();              break;
                 case "8": menu.RamenerUnCd();                break;
-                case "9": menu.RechercherCDParTitre(); break;
+                case "9": menu.RechercherCDParTitre();       break;
                 case "0": return false;
             }
 
