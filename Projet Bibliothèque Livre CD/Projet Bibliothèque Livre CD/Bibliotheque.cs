@@ -159,8 +159,7 @@ namespace Projet_Bibliothèque_Livre_CD
             ajouterCD(cdARestituer);
             Emprunts.CDEmpruntés.Remove(cdARestituer);
 
-            return true; // Juste pour que mon code soit juste, faudra faire la boucle
-
+            return true;
         }
 
         public bool restituerLivre(string titre)
@@ -172,7 +171,7 @@ namespace Projet_Bibliothèque_Livre_CD
             ajouterLivre(livreARestituer);
             Emprunts.LivresEmpruntés.Remove(livreARestituer);
 
-            return true; // Juste pour que mon code soit juste, faudra faire la boucle
+            return true;
         }
     }
 }

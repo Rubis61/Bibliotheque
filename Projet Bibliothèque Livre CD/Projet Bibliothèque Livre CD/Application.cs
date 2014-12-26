@@ -18,10 +18,11 @@ namespace Projet_Bibliothèque_Livre_CD
             {
 
                 menu.AfficherMenu();
-                choixUtilisateur = Console.ReadLine().ToString();
+                choixUtilisateur = Console.ReadKey().KeyChar.ToString();
                 
             }
-            while (choixUtilisateur != "1" && choixUtilisateur != "2" && choixUtilisateur != "3" && choixUtilisateur != "4" && choixUtilisateur != "5" && choixUtilisateur != "6" && choixUtilisateur != "7" && choixUtilisateur != "8" && choixUtilisateur != "9");
+            while (choixUtilisateur != "1" && choixUtilisateur != "2" && choixUtilisateur != "3" && choixUtilisateur != "4" && choixUtilisateur != "5" && choixUtilisateur != "6" && choixUtilisateur != "7" && 
+                   choixUtilisateur != "8" && choixUtilisateur != "9" && choixUtilisateur != "0");
 
             Console.Clear();
 
@@ -35,7 +36,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 case "6": menu.AjouterUnCd();                break;
                 case "7": menu.EmprunterUnCD();              break;
                 case "8": menu.RamenerUnCd();                break;
-                case "9": menu.RechercherCDParTitre();       break;
+                case "9": menu.RechercherCDParTitre(); break;
+                case "0": return false;
             }
 
             return VoulezVousContinuez();
@@ -48,8 +50,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 Console.Clear();
                 Console.WriteLine("Voulez vous arrêter ? o/n");
                 Console.WriteLine();
-                finDuProgramme = Console.ReadLine().ToString();
-            }while (finDuProgramme != "o" && finDuProgramme != "O" && finDuProgramme != "n" && finDuProgramme != "N");
+                finDuProgramme = Console.ReadKey().KeyChar.ToString();
+            }while (finDuProgramme.ToLower() != "o" && finDuProgramme.ToLower() != "n");
 
             if (finDuProgramme == "o" || finDuProgramme == "O")
             {
