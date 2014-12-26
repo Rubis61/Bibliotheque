@@ -67,6 +67,9 @@ namespace Projet_Bibliothèque_Livre_CD
             menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
             menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
             menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
+
+            menu.bibliotheque.emprunterCD("7eme symphonie");
+            menu.bibliotheque.emprunterLivre("Bible");
         }
     }
 }

@@ -104,22 +104,31 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         public void RamenerUnLivre()
         {
-            bool erreur;
-            do
+            bool livreRamené = false;
+            Console.WriteLine("Vous voulez ramener un livre.");
+            Console.WriteLine();
+
+            do // Gestion de la saisie utilisateur
             {
-                Console.WriteLine("Vous voulez ramenner un livre.");
-                Console.WriteLine();
                 Console.WriteLine("Quel est le titre du livre que vous voulez rapporter? (Tapez 'retour' pour annuler)");
                 saisiUtilisateur = Console.ReadLine().ToString();
-                erreur = bibliotheque.restituerLivre(saisiUtilisateur);
-                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                if (saisiUtilisateur.ToLower() == "retour")
                 {
                     break;
                 }
+                livreRamené = bibliotheque.restituerLivre(saisiUtilisateur);
+                if (livreRamené == false)
+                {
+                    Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine();
+                }
             }
-            while (erreur == false);
-            Console.WriteLine("Le livre " + saisiUtilisateur + " a bien était rapporté");
-            Console.ReadLine();
+            while (livreRamené == false);
+            
+            Console.WriteLine();
+            if (livreRamené == true) Console.WriteLine("Le livre \"" + saisiUtilisateur + "\" a bien été rapporté");
+
+            if(saisiUtilisateur.ToLower() != "retour") Console.ReadLine();
         }
         public void RechercherLivreParTitre()
         {
@@ -188,23 +197,32 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         public void RamenerUnCd()
         {
-            bool erreur;
-            do
+            bool cdRamené = false;
+            Console.WriteLine("Vous voulez ramener un CD.");
+            Console.WriteLine();
+
+            do // Gestion de la saisie utilisateur
             {
-                Console.WriteLine("Vous voulez ramenner un CD.");
-                Console.WriteLine();
                 Console.WriteLine("Quel est le titre du CD que vous voulez rapporter? (Tapez 'retour' pour annuler)");
                 saisiUtilisateur = Console.ReadLine().ToString();
-                erreur = bibliotheque.restituerCD(saisiUtilisateur);
-                if (saisiUtilisateur == "retour" || saisiUtilisateur == "Retour")
+                if (saisiUtilisateur.ToLower() == "retour")
                 {
                     break;
                 }
+                cdRamené = bibliotheque.restituerCD(saisiUtilisateur);
+                if (cdRamené == false)
+                {
+                    Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine();
+                }
             }
-            while (erreur == false);
-            Console.WriteLine("Le CD " + saisiUtilisateur + " a bien était rapporté");
-            Console.ReadLine();
+            while (cdRamené == false);
 
+            Console.WriteLine();
+            if (cdRamené == true) Console.WriteLine("Le CD \"" + saisiUtilisateur + "\" a bien été rapporté");
+
+
+            if (saisiUtilisateur.ToLower() != "retour") Console.ReadLine();
         }
         public void RechercherCDParTitre()
         {

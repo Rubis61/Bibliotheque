@@ -27,7 +27,8 @@ namespace Projet_Bibliothèque_Livre_CD
         /// Cohérence nom de méthode/contenu (ex: VoulezVousContinuez? et Voulez vous arrêter?)
         /// Gérer le retour de "emprunterLivre" et "emprunterCD", est ce que l'on gère 3 états ? genre true = emprunté, false = nombre pas disponible et null = livre non trouvé ?
         /// Parfois le programme ne s'arrete pas lorsque je fais "o" dans "VoulezVousContinuez" --> je l'ai corrigé ! cf : boucle principale dans Program
-        /// 
+        /// Fautes d'orthographes
+        /// Choix 0 dans le menu pour arrêter le programme
 
         /// APRES TOUT CA
         /// Gestion de la sauvegarde/restauration par fichier ou par BDD

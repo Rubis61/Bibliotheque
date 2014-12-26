@@ -154,10 +154,12 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             CD cdARestituer = Emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
 
+            if (cdARestituer == null) return false;
+
             ajouterCD(cdARestituer);
             Emprunts.CDEmpruntés.Remove(cdARestituer);
 
-            return false; // Juste pour que mon code soit juste, faudra faire la boucle
+            return true; // Juste pour que mon code soit juste, faudra faire la boucle
 
         }
 
@@ -165,9 +167,12 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             Livre livreARestituer = Emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
 
+            if (livreARestituer == null) return false;
+
             ajouterLivre(livreARestituer);
             Emprunts.LivresEmpruntés.Remove(livreARestituer);
-            return false; // Juste pour que mon code soit juste, faudra faire la boucle
+
+            return true; // Juste pour que mon code soit juste, faudra faire la boucle
         }
     }
 }
