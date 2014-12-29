@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    public enum GenreDuLivre {Drame, Policier, Culturel, Religieux};
+    public enum GenreDuLivre {NonDéfini, Drame, Policier, Culturel, Religieux};
 
     public class Livre : ContenuMultimedia
     {
