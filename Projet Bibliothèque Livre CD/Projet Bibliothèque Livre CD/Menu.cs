@@ -229,7 +229,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
             Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
-            int i = 0;
+            
             maListe.ForEach(delegate(Musique musique)
             {
                 Console.WriteLine(musique.Numero + " - " + musique.Titre);
