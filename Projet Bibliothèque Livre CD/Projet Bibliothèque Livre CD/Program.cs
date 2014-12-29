@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ namespace Projet_Bibliothèque_Livre_CD
 
         static void Main(string[] args)
         {
+            // Activer cette ligne que pour générer la BDD, par exemple si modification
+            /*/ générerBDD(); //*/
+
             Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
                     Console.WriteLine(livre.livreEmprunté.ToString());
@@ -92,6 +96,62 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             Console.WriteLine("Un livre a été emprunté : ");
             Console.WriteLine("    " + e.livreEmprunté.ToString());
+        }
+
+        private static void générerBDD()
+        {
+            //Création du fichier de stockage de la base de données SQLite
+            //A ne faire qu'une fois.
+            //SQLiteConnection.CreateFile("Bibliotheque.sqlite");
+            // Connexion à la base de données
+            SQLiteConnection dbConnection = new SQLiteConnection("Data Source=Bibliotheque.sqlite;Version=3;");
+            dbConnection.Open(); // Ouverture de la connexion
+            string sqlCreateTable_Livre = // Création Table Livre
+              @"CREATE TABLE Livre (
+                Id         INTEGER       PRIMARY KEY AUTOINCREMENT,
+                Titre      NVARCHAR (50) NULL,
+                Nombre     INT           NULL,
+                Auteur     NVARCHAR (50) NULL,
+                NumeroISBN NVARCHAR (50) NULL,
+                Genre      NVARCHAR (50) NULL );";
+            string sqlCreateTable_CD = // Création Table CD
+              @"CREATE TABLE CD (
+                Id      INTEGER       PRIMARY KEY AUTOINCREMENT,
+                Titre   NVARCHAR (50) NULL,
+                Nombre  INT           DEFAULT ((1)) NULL,
+                Artiste NVARCHAR (50) NULL,
+                Style   NVARCHAR (50) NULL,
+                PRIMARY KEY (Id ASC) );";
+            string sqlCreateTable_Musique = // Création Table Musique
+              @"CREATE TABLE Musique (
+                Id    INTEGER       PRIMARY KEY AUTOINCREMENT,
+                FK_CD INT           NOT NULL,
+                Titre NVARCHAR (50) NULL,
+                PRIMARY KEY (Id ASC) );";
+
+            // Exécution des requêtes pour créer les 3 tables
+            SQLiteCommand command = new SQLiteCommand(sqlCreateTable_Livre, dbConnection);
+            /*/command.ExecuteNonQuery(); //*/
+
+            command = new SQLiteCommand(sqlCreateTable_CD, dbConnection);
+            /*/command.ExecuteNonQuery(); //*/
+
+            command = new SQLiteCommand(sqlCreateTable_Musique, dbConnection);
+            /*/command.ExecuteNonQuery(); //*/
+
+            // Insertion de 3 livres : Bible par DIEU de genre Religieux
+            string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES('Bible', 3, 'Dieu', '123-456-789', 'Religieux');";
+            command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
+            /*/ command.ExecuteNonQuery(); //*/
+
+            string sqlSelect_Livre = @"SELECT * FROM Livre WHERE Titre='Bible';";
+            command = new SQLiteCommand(sqlSelect_Livre, dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+
+            while(reader.Read())
+            {
+                Console.WriteLine(reader["Id"] + " " + reader["Titre"] + " " + reader["Auteur"] + " " + reader["NumeroISBN"] + " " + reader["Genre"]);
+            }
         }
     }
 }
