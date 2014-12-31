@@ -13,13 +13,21 @@ namespace Projet_Bibliothèque_Livre_CD
         public Emprunts Emprunts { get; set; }
 
         public event EventHandler<EmpruntLivreEventArgs> livreEmprunté;
-        //public event EventHandler<EmpruntLivreEventArgs> livreEmprunté;
+        public event EventHandler<EmpruntCDEventArgs> cdEmprunté;
 
         private void OnLivreEmprunté(EmpruntLivreEventArgs e)
         {
             if (livreEmprunté != null)
             {
                 livreEmprunté(this, e);
+            }
+        }
+
+        private void OnCDEmprunté(EmpruntCDEventArgs e)
+        {
+            if(cdEmprunté != null)
+            {
+                cdEmprunté(this, e);
             }
         }
 

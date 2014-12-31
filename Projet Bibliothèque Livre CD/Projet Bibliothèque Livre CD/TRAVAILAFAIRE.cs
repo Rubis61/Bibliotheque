@@ -33,6 +33,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         /// APRES TOUT CA
         /// Gestion de la sauvegarde/restauration par fichier ou par BDD
+        /// Ajouter les Summary de chaque méthodes et commenter toutes les portions de codes
         /// Système de LOG ?!?!
     }
 }

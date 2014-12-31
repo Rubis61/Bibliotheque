@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace Projet_Bibliothèque_Livre_CD
 {
-    class BDD
+    public class BDD
     {
         static readonly string connectionString = ConfigurationManager.ConnectionStrings["BibliothequeDBConnectionString"].ConnectionString;
         SQLiteConnection dbConnection = new SQLiteConnection(connectionString);

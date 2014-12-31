@@ -101,6 +101,12 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("    " + e.livreEmprunté.ToString());
         }
 
+        private static void bibliotheque_CDEmprunté(Object sender, EmpruntCDEventArgs e)
+        {
+            Console.WriteLine("Un cd a été emprunté : ");
+            Console.WriteLine("    " + e.cdEmprunté.ToString());
+        }
+
         private static void générerBDD()
         {
             //Création du fichier de stockage de la base de données SQLite

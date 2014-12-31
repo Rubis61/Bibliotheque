@@ -13,7 +13,6 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void AfficherMenu()
         {
-
             Console.Clear();
             Console.WriteLine("Que voulez-vous faire?");
             Console.WriteLine();
