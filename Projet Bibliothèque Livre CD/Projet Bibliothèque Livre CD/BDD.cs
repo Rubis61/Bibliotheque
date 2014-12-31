@@ -66,13 +66,29 @@ namespace Projet_Bibliothèque_Livre_CD
             command.Parameters.Add(new SQLiteParameter("@Nombre", livre.NombreEnStock));
             command.Parameters.Add(new SQLiteParameter("@Auteur", livre.AuteurDuLivre));
             command.Parameters.Add(new SQLiteParameter("@ISBN", livre.NumeroISBN));
-            command.Parameters.Add(new SQLiteParameter("@Genre", livre.Genre));
+            command.Parameters.Add(new SQLiteParameter("@Genre", livre.Genre.ToString()));
 
             int result = command.ExecuteNonQuery();
 
             dbConnection.Close();
 
             return (result>=1);
+        }
+
+        public bool setNombreEnStock_Livre(string titre, int nombre)
+        {
+            dbConnection.Open();
+
+            string sqlInsert_Livre = "UPDATE Livre SET Nombre = @Nombre WHERE Titre = @Titre";
+            SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@Titre", titre));
+            command.Parameters.Add(new SQLiteParameter("@Nombre", nombre));
+
+            int result = command.ExecuteNonQuery();
+
+            dbConnection.Close();
+
+            return (result >= 1);
         }
     }
 }
