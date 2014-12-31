@@ -16,6 +16,7 @@ namespace Projet_Bibliothèque_Livre_CD
             // Activer cette ligne que pour générer la BDD, par exemple si modification
             /*/ générerBDD(); //*/
             BDD bdd = new BDD();
+            bool ok = bdd.ajouterLivre(new Livre(-1, "OK", 5, "456-654-789", "Moi", GenreDuLivre.Drame));
             List<Livre> livres = bdd.getLivres().ToList();
             livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()
 

@@ -37,7 +37,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public override string ToString()
         {
-            return "Titre : " + Titre + ", Nombre : " + NombreEnStock + ", Auteur : " + AuteurDuLivre +
+            return (IdentifiantUnique+1) + " - Titre : " + Titre + ", Nombre : " + NombreEnStock + ", Auteur : " + AuteurDuLivre +
                    ", Genre : " + Genre.ToString();
         }
 

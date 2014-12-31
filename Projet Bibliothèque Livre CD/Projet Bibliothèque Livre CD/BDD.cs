@@ -11,8 +11,10 @@ namespace Projet_Bibliothèque_Livre_CD
 {
     public class BDD
     {
-        static readonly string connectionString = ConfigurationManager.ConnectionStrings["BibliothequeDBConnectionString"].ConnectionString;
-        SQLiteConnection dbConnection = new SQLiteConnection(connectionString);
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["BibliothequeDBConnectionString"].ConnectionString;
+        private static SQLiteConnection dbConnection = new SQLiteConnection(connectionString);
+
+        private static SQLiteCommand command;
 
         public BDD() 
         { }
@@ -30,7 +32,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 while(reader.Read())
                 {
-                    int id = (reader["Id"] as int?).HasValue ? (reader["Id"] as int?).Value : -1;
+                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
                     string titre = reader["Titre"] as string;
                     int nbr = (reader["Nombre"] as int?).Value;
                     string auteur = reader["Auteur"] as string;
@@ -52,6 +54,25 @@ namespace Projet_Bibliothèque_Livre_CD
             dbConnection.Close();
 
             return livres;
+        }
+
+        public bool ajouterLivre(Livre livre)
+        {
+            dbConnection.Open();
+
+            string sqlInsert_Livre = "INSERT INTO Livre(Id, Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(0, @Titre, @Nombre, @Auteur, @ISBN, @Genre);";
+            SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@Titre", livre.Titre));
+            command.Parameters.Add(new SQLiteParameter("@Nombre", livre.NombreEnStock));
+            command.Parameters.Add(new SQLiteParameter("@Auteur", livre.AuteurDuLivre));
+            command.Parameters.Add(new SQLiteParameter("@ISBN", livre.NumeroISBN));
+            command.Parameters.Add(new SQLiteParameter("@Genre", livre.Genre));
+
+            int result = command.ExecuteNonQuery();
+
+            dbConnection.Close();
+
+            return (result>=1);
         }
     }
 }
