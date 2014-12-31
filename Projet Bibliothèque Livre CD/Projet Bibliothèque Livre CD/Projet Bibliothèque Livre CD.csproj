@@ -62,7 +62,8 @@
     <Compile Include="BDD.cs" />
     <Compile Include="Bibliotheque.cs" />
     <Compile Include="CD.cs" />
-    <Compile Include="EmpruntLivreEventArgs.cs" />
+    <Compile Include="EventArgs\EmpruntCDEventArgs.cs" />
+    <Compile Include="EventArgs\EmpruntLivreEventArgs.cs" />
     <Compile Include="Emprunts.cs" />
     <Compile Include="Musique.cs" />
     <Compile Include="ContenuMultimedia.cs" />
