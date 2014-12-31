@@ -21,9 +21,9 @@ namespace Projet_Bibliothèque_Livre_CD
         //      - FAIT!
         //tester si le livre / CD existe avant de le restituer? (class Bibliotheque / méthode restituer CD et restituer Livre
         // Emprunt d'un Livre/CD par évênement, cf : Consigne
+        //      - FAIT!
 
         /// Je m'aventure dans ton code !
-        /// Lister la bibliothèque
         /// Cohérence nom de méthode/contenu (ex: VoulezVousContinuez? et Voulez vous arrêter?)
         /// Gérer le retour de "emprunterLivre" et "emprunterCD", est ce que l'on gère 3 états ? genre true = emprunté, false = nombre pas disponible et null = livre non trouvé ?
         /// Parfois le programme ne s'arrete pas lorsque je fais "o" dans "VoulezVousContinuez" --> je l'ai corrigé ! cf : boucle principale dans Program
@@ -32,7 +32,9 @@ namespace Projet_Bibliothèque_Livre_CD
         /// ForEach de parcours des listes
 
         /// APRES TOUT CA
-        /// Gestion de la sauvegarde/restauration par fichier ou par BDD
+        /// Gestion de la sauvegarde/restauration par fichier ou par BDD -> BDD EN COURS
+        /// Comment gérer les emprunts dans la BDD ??!!
+        /// SUPPRESSION D'UN ELEMENT !!
         /// Ajouter les Summary de chaque méthodes et commenter toutes les portions de codes
         /// Système de LOG ?!?!
     }
