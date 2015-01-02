@@ -14,9 +14,8 @@ namespace Projet_Bibliothèque_Livre_CD
         public static Menu menu = new Menu();
         public static bool RunApplication()
         {
-            do
+       
             {
-
                 menu.AfficherMenu();
                 choixUtilisateur = Console.ReadKey().KeyChar.ToString();
                 

@@ -65,6 +65,7 @@
     <Compile Include="EventArgs\EmpruntCDEventArgs.cs" />
     <Compile Include="EventArgs\EmpruntLivreEventArgs.cs" />
     <Compile Include="Emprunts.cs" />
+    <Compile Include="LogApplication.cs" />
     <Compile Include="Musique.cs" />
     <Compile Include="ContenuMultimedia.cs" />
     <Compile Include="Livre.cs" />

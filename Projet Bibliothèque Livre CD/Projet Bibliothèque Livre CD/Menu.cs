@@ -9,7 +9,9 @@ namespace Projet_Bibliothèque_Livre_CD
     public class Menu
     {
         public Bibliotheque bibliotheque = new Bibliotheque();
+        public LogApplication log = new LogApplication();
         public string saisieUtilisateur { get; set; }
+        public static string pathOfLog { get; set; }
 
         public void AfficherMenu()
         {
@@ -31,6 +33,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void ListerLaBibliotheque()
         {
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Listez la bibliothèque");
+
             Console.WriteLine("/////////////////////////////////////////////////////////////////////////");
             Console.WriteLine("//                            Bibliothèque                             //");
             Console.WriteLine("/////////////////////////////////////////////////////////////////////////");
@@ -83,9 +87,12 @@ namespace Projet_Bibliothèque_Livre_CD
             bibliotheque.ajouterLivre(titre, ISBN, auteur, AfficherEtSaisirGenreDuLivre());
             Console.WriteLine();
             Console.WriteLine("Le livre \"" + titre + "\" de l'auteur \"" + auteur + "\" a bien été ajouté avec ");
-            Console.WriteLine("comme genre " + saisieUtilisateur.ToUpper() + " avec comme numéro ISBN \"" + ISBN + "\"");
+            Console.WriteLine("comme genre " + saisieUtilisateur.ToUpper() + " et comme numéro ISBN \"" + ISBN + "\"");
 
             Console.WriteLine();
+
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Ajout du livre " + titre + " écrit par : " + auteur + " du genre : " + saisieUtilisateur.ToUpper() + " avec comme numéro ISBN : " + ISBN);
+
             AppuyerSurUneTouchePourContinuer();
         }
         public void EmprunterUnLivre()
@@ -97,7 +104,22 @@ namespace Projet_Bibliothèque_Livre_CD
                 Console.WriteLine();
                 Console.WriteLine("Quel est le titre du livre que vous voulez emprunter? (Tapez 'retour' pour annuler)");
                 saisieUtilisateur = Console.ReadLine().ToString();
-                erreur = bibliotheque.emprunterLivre(saisieUtilisateur);
+                try
+                {
+                    erreur = Boolean.Parse(bibliotheque.emprunterLivre(saisieUtilisateur));
+
+                    if(erreur == false)
+                    {
+                        Console.WriteLine("Le livre n'est plus disponible ! Revenez plus tard ;)");
+                        Console.ReadKey();
+                    }
+                }
+                catch(FormatException)
+                {
+                    erreur = false;
+                    Console.WriteLine("Le livre n'existe pas ou n'a pas été trouvé dans la bibliothèque.");
+                    Console.ReadKey();
+                }
                 if (saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
                 {
                     return;
@@ -105,9 +127,11 @@ namespace Projet_Bibliothèque_Livre_CD
             }
             while (erreur == false);
 
-            //Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunté");
+            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunté");
 
             Console.WriteLine();
+
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Emprunt du livre " + saisieUtilisateur);
             AppuyerSurUneTouchePourContinuer();
         }
         public void RamenerUnLivre()
@@ -133,6 +157,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
             }
             while (livreRamené == false);
+
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Emprunt du livre " + saisieUtilisateur);
 
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
@@ -171,6 +197,7 @@ namespace Projet_Bibliothèque_Livre_CD
             while (livre == null);
 
             Console.WriteLine();
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Recherche du livre " + saisieUtilisateur);
             AppuyerSurUneTouchePourContinuer();
         }
 
@@ -246,9 +273,24 @@ namespace Projet_Bibliothèque_Livre_CD
                 Console.WriteLine();
                 Console.WriteLine("Quel est le titre du CD que vous voulez emprunter? (Tapez 'retour' pour annuler)");
                 saisieUtilisateur = Console.ReadLine().ToString();
-                erreur = bibliotheque.emprunterCD(saisieUtilisateur);
+                try
+                {
+                    erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
 
-                if(saisieUtilisateur == "retour" || saisieUtilisateur == "Retour")
+                    if (erreur == false)
+                    {
+                        Console.WriteLine("Le CD n'est plus disponible ! Revenez plus tard ;)");
+                        Console.ReadKey();
+                    }
+                }
+                catch (FormatException)
+                {
+                    erreur = false;
+                    Console.WriteLine("Le CD n'existe pas ou n'a pas été trouvé dans la bibliothèque.");
+                    Console.ReadKey();
+                }
+
+                if(saisieUtilisateur.ToLower() == "retour")
                 {
                     return;
                 }
@@ -326,6 +368,18 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             Console.WriteLine("Appuyez sur une touche pour continuer...");
             Console.ReadKey();
+        }
+        public string EmplacementFichierLog()
+        {
+            Console.WriteLine("Où voulez vous placer le fichier de log de l'application?");
+            Console.WriteLine(@"Exemple : C:\Users\(Username)\Desktop");
+            string path = Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Quel est le nom du fichier de log?");
+            Console.WriteLine("Exemple : monfichierlog.txt");
+            string name = Console.ReadLine();
+            pathOfLog = path + @"\" + name;
+            return pathOfLog;
         }
     }
 }
