@@ -11,7 +11,8 @@ namespace Projet_Bibliothèque_Livre_CD
         /// ici on mettra les choses à faire, pour pouvoir s'y retrouver ^^
         /// 
         /// Bon travail pour l'architecture du code avec l'Application RUN :D
-        /// 
+        ///      - Merci
+        ///      
         ///emprunter un livre : t'as du copier coller l'emprunter un CD, y'a des choses qui sont pas bonnes (class : Bibliothèque / méthode : emprunterUnLivre)
         ///      - Corrigé
         ///      
@@ -54,10 +55,15 @@ namespace Projet_Bibliothèque_Livre_CD
         /// ForEach de parcours des listes
         /// Gestion de la sauvegarde/restauration par fichier ou par BDD -> BDD EN COURS
         /// Comment gérer les emprunts dans la BDD ??!!
+        /// 
         /// SUPPRESSION D'UN ELEMENT !!
         ///     - Commencé
+        ///     
         /// Ajouter les Summary de chaque méthodes et commenter toutes les portions de codes
+        /// -Pas sur que ça soit top top, le prof est pas fan des commentaires, je pense qu'il vaut mieux en mettre de petit bien placés qu'un gros pavé (faut en discuter / limite poser la question au prof^^)
+        /// 
+        /// 
         /// Fautes d'orthographes => En cours 
-        /// -Genre y'en a !
+        /// -Genre y'en a !!!!!!!
     }
 }
