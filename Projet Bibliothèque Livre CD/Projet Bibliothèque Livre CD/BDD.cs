@@ -60,7 +60,7 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             dbConnection.Open();
 
-            string sqlInsert_Livre = "INSERT INTO Livre(Id, Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(0, @Titre, @Nombre, @Auteur, @ISBN, @Genre);";
+            string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(@Titre, @Nombre, @Auteur, @ISBN, @Genre);";
             SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@Titre", livre.Titre));
             command.Parameters.Add(new SQLiteParameter("@Nombre", livre.NombreEnStock));
@@ -68,18 +68,29 @@ namespace Projet_Bibliothèque_Livre_CD
             command.Parameters.Add(new SQLiteParameter("@ISBN", livre.NumeroISBN));
             command.Parameters.Add(new SQLiteParameter("@Genre", livre.Genre.ToString()));
 
-            int result = command.ExecuteNonQuery();
+            bool result = false;
+            try
+            {
+                int nbrRowsInserted = command.ExecuteNonQuery();
+
+                result = (nbrRowsInserted>=1);
+            }
+            catch (Exception e)
+            {
+                result = false;
+                throw;
+            }
 
             dbConnection.Close();
 
-            return (result>=1);
+            return result;
         }
 
         public bool setNombreEnStock_Livre(string titre, int nombre)
         {
             dbConnection.Open();
 
-            string sqlInsert_Livre = "UPDATE Livre SET Nombre = @Nombre WHERE Titre = @Titre";
+            string sqlInsert_Livre = "UPDATE Livre SET Nombre = @Nombre";// WHERE Titre = @Titre";
             SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
             command.Parameters.Add(new SQLiteParameter("@Titre", titre));
             command.Parameters.Add(new SQLiteParameter("@Nombre", nombre));
