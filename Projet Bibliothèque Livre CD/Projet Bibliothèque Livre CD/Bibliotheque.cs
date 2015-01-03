@@ -72,6 +72,23 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
+        //public string SupprimerUnCD(string titre)
+        //{
+        //    try
+        //    {
+        //        return ListLivres.SingleOrDefault(livre => titre == livre.Titre);
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        return null;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
             int idNouveauLivre = ListLivres.Count;
@@ -106,7 +123,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 return ListCD.SingleOrDefault(cd => cd.Titre == titre);
             }
-            catch (InvalidOperationException e)
+            catch(InvalidOperationException)
             {
                 return null;
             }
@@ -122,7 +139,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 return ListLivres.SingleOrDefault(livre => livre.Titre == titre);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return null;
             }
@@ -132,29 +149,29 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public bool emprunterCD(string titre)
+        public string emprunterCD(string titre)
         {
             CD cdAEmprunter = rechercherCD(titre);
 
-            if (cdAEmprunter == null) return false; // Le CD n'a pas été trouvé
+            if (cdAEmprunter == null) return "null"; // Le CD n'a pas été trouvé
 
             if (cdAEmprunter.NombreEnStock >= 1)
             { // Si au moins un CD de disponible
                 cdAEmprunter.NombreEnStock--; // Prise du CD en stock
                 Emprunts.ajouterCD(cdAEmprunter); // Emprunt du CD
-                return true;
+                return "true";
             }
             else // Si pas de CD disponible
             {
-                return false;
+                return "false";
             }
         }
 
-        public bool emprunterLivre(string titre)
+        public string emprunterLivre(string titre)
         {
             Livre livreAEmprunter = rechercherLivre(titre);
 
-            if (livreAEmprunter == null) return false; // Le Livre n'a pas été trouvé
+            if (livreAEmprunter == null) return "null"; // Le Livre n'a pas été trouvé
 
             if (livreAEmprunter.NombreEnStock >= 1)
             { // Si au moins un livre de disponible
@@ -164,11 +181,11 @@ namespace Projet_Bibliothèque_Livre_CD
                 Emprunts.ajouterLivre(livreAEmprunter); // Emprunt du Livre
 
                 OnLivreEmprunté(new EmpruntLivreEventArgs(livreAEmprunter));
-                return true;
+                return "true";
             }
             else // Si pas de livre disponible
             {
-                return false;
+                return "false";
             }
         }
 

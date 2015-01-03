@@ -10,15 +10,14 @@ namespace Projet_Bibliothèque_Livre_CD
     class Program
     {
         //private static Bibliotheque bibliothèque = new Bibliotheque(new List<CD>(), new List<Livre>(), new Emprunts());
-
         static void Main(string[] args)
         {
             // Activer cette ligne que pour générer la BDD, par exemple si modification
             /*/ générerBDD(); //*/
 
-            TESTS();
+            //TESTS();
 
-            Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
+            //Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
                     Console.WriteLine(livre.livreEmprunté.ToString());
                 */
@@ -28,10 +27,18 @@ namespace Projet_Bibliothèque_Livre_CD
             for (int i = 0; i < 20; i++)
             {
                 Console.Write("█");
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(50);
             }
 
             Console.Clear();
+
+            Menu menu = new Menu();
+            bool erreur;
+            LogApplication log = new LogApplication();
+            do
+            {
+                erreur = log.CréerUnFichierTexte(menu.EmplacementFichierLog());
+            } while (erreur == false);
 
             //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
             Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà sera fait par la base de données

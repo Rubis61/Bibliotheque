@@ -46,7 +46,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 reader.Close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 livres = null;
             }

@@ -14,9 +14,8 @@ namespace Projet_Bibliothèque_Livre_CD
         public static Menu menu = new Menu();
         public static bool RunApplication()
         {
-            do
+       
             {
-
                 menu.AfficherMenu();
                 choixUtilisateur = Console.ReadKey().KeyChar.ToString();
                 
@@ -28,15 +27,18 @@ namespace Projet_Bibliothèque_Livre_CD
 
             switch(choixUtilisateur)
             {
-                case "1": menu.ListerLaBibliotheque();       break;
-                case "2": menu.AjouterUnLivre();             break;
-                case "3": menu.EmprunterUnLivre();           break;
-                case "4": menu.RamenerUnLivre();             break;
-                case "5": menu.RechercherLivreParTitre();    break;
-                case "6": menu.AjouterUnCd();                break;
-                case "7": menu.EmprunterUnCD();              break;
-                case "8": menu.RamenerUnCd();                break;
-                case "9": menu.RechercherCDParTitre();       break;
+                case "1" : menu.ListerLaBibliotheque();       break;
+                case "2" : menu.AjouterUnLivre();             break;
+                case "3" : menu.EmprunterUnLivre();           break;
+                case "4" : menu.RamenerUnLivre();             break;
+                case "5" : menu.RechercherLivreParTitre();    break;
+                case "6" : menu.SupprimerUnLivre();           break;
+                case "7" : menu.AjouterUnCd();                break;
+                case "8" : menu.EmprunterUnCD();              break;
+                case "9" : menu.RamenerUnCd();                break;
+                case "10": menu.RechercherCDParTitre();       break;
+                case "11": menu.SupprimerUnCD();              break;
+
                 case "0": return false;
             }
 
