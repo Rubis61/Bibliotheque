@@ -28,13 +28,12 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         public void WriteMessage(string message)
         {
-            Console.WriteLine(Menu.pathOfLog);
-            Console.ReadKey();
                using (FileStream stream = File.Open(Menu.pathOfLog, FileMode.Append, FileAccess.Write))
               {
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.WriteLine(message);
+                    writer.Close();
                 }
               }
         }

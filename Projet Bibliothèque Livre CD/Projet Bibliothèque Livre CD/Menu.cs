@@ -23,10 +23,13 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("3 - Emprunter un livre");
             Console.WriteLine("4 - Ramener un livre");
             Console.WriteLine("5 - Rechercher un livre par son titre");
-            Console.WriteLine("6 - Ajouter un CD");
-            Console.WriteLine("7 - Emprunter un CD");
-            Console.WriteLine("8 - Ramener un CD");
-            Console.WriteLine("9 - Rechercher un CD par son titre");
+            Console.WriteLine("6 - Supprimer un livre de la bibliothèque");
+            Console.WriteLine("7 - Ajouter un CD");
+            Console.WriteLine("8 - Emprunter un CD");
+            Console.WriteLine("9 - Ramener un CD");
+            Console.WriteLine("10 - Rechercher un CD par son titre");
+            Console.WriteLine("11 - Supprimer un CD de la bibliothèque");
+            Console.WriteLine();
             Console.WriteLine("0 - Quitter");
             Console.WriteLine();
         }
@@ -102,7 +105,8 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 Console.WriteLine("Vous voulez emprunter un livre.");
                 Console.WriteLine();
-                Console.WriteLine("Quel est le titre du livre que vous voulez emprunter? (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du livre que vous voulez emprunter ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
@@ -142,7 +146,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do // Gestion de la saisie utilisateur
             {
-                Console.WriteLine("Quel est le titre du livre que vous voulez rapporter? (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du livre que vous voulez rapporter ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
                 if (saisieUtilisateur.ToLower() == "retour")
                 {
@@ -171,7 +176,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do
             {
-                Console.WriteLine("Quel est le titre du livre que vous voulez rechercher (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du livre que vous voulez rechercher ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
 
                 if (saisieUtilisateur.ToLower() == "retour")
@@ -201,6 +207,45 @@ namespace Projet_Bibliothèque_Livre_CD
             AppuyerSurUneTouchePourContinuer();
         }
 
+        public void SupprimerUnLivre()
+        {
+            Livre livre;
+            Console.WriteLine("Vous voulez supprimer un livre.");
+            Console.WriteLine();
+
+            do
+            {
+                Console.WriteLine("Quel est le titre du livre que vous voulez supprimer ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
+                saisieUtilisateur = Console.ReadLine().ToString();
+
+                if (saisieUtilisateur.ToLower() == "retour")
+                {
+                    return;
+                }
+
+                livre = bibliotheque.rechercherLivre(saisieUtilisateur);
+
+                Console.WriteLine();
+
+                if (livre == null)
+                {
+                    Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine("Le livre a bien été supprimé : ");
+                    livre.NombreEnStock--;
+                }
+            }
+            while (livre == null);
+
+            Console.WriteLine();
+            AppuyerSurUneTouchePourContinuer();
+
+        }
+
         public void RechercherCDParTitre()
         {
             CD cd;
@@ -209,7 +254,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do
             {
-                Console.WriteLine("Quel est le titre du CD que vous voulez rechercher (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du CD que vous voulez rechercher ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
 
                 if (saisieUtilisateur.ToLower() == "retour")
@@ -271,7 +317,8 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 Console.WriteLine("Vous voulez emprunter un CD.");
                 Console.WriteLine();
-                Console.WriteLine("Quel est le titre du CD que vous voulez emprunter? (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du CD que vous voulez emprunter?");
+                Console.WriteLine("Tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
@@ -307,7 +354,8 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do // Gestion de la saisie utilisateur
             {
-                Console.WriteLine("Quel est le titre du CD que vous voulez rapporter? (Tapez 'retour' pour annuler)");
+                Console.WriteLine("Quel est le titre du CD que vous voulez rapporter?)");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
                 if (saisieUtilisateur.ToLower() == "retour")
                 {
@@ -325,6 +373,12 @@ namespace Projet_Bibliothèque_Livre_CD
 
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
+        }
+        public void SupprimerUnCD()
+        {
+            Console.WriteLine("Quel est le titre du livre ou CD que vous voulez enlever de la bibliothèque ?");
+            Console.WriteLine("Sinon tapez 'retour' pour annuler");
+
         }
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()

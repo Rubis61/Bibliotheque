@@ -72,6 +72,23 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
+        //public string SupprimerUnCD(string titre)
+        //{
+        //    try
+        //    {
+        //        return ListLivres.SingleOrDefault(livre => titre == livre.Titre);
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        return null;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
             int idNouveauLivre = ListLivres.Count;
@@ -106,7 +123,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 return ListCD.SingleOrDefault(cd => cd.Titre == titre);
             }
-            catch (InvalidOperationException e)
+            catch(InvalidOperationException)
             {
                 return null;
             }
@@ -122,7 +139,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 return ListLivres.SingleOrDefault(livre => livre.Titre == titre);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return null;
             }

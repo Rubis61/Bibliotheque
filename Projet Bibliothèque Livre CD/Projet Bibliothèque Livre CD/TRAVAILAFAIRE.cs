@@ -32,15 +32,13 @@ namespace Projet_Bibliothèque_Livre_CD
         ///     
         /// Gérer le retour de "emprunterLivre" et "emprunterCD", est ce que l'on gère 3 états ? genre true = emprunté, false = nombre pas disponible et null = livre non trouvé ?
         ///     - OK, remplacé le booléen par un string que je convert en booleen, si ça plante, c'est que c'est null donc livre non trouvé, sinon c'est true où false
-        ///     - + ajout d'un message pour savoir pourquoi ça plante ( l'utilisateur sait que le livre n'existe pas / où qu'il n'est plus en stock)
+        ///     - + ajout d'un message pour savoir pourquoi ça plante ( l'utilisateur sait que le livre n'existe pas / ou qu'il n'est plus en stock)
         ///     
         /// Parfois le programme ne s'arrete pas lorsque je fais "o" dans "VoulezVousContinuez" --> je l'ai corrigé ! cf : boucle principale dans Program
         ///     - OK
         ///     
         /// Choix 0 dans le menu pour arrêter le programme => Fait
         ///     - OK
-        ///     
-        /// ForEach de parcours des listes
         /// 
         /// Pas con le ToLower() j'y avais pas pensé, c'plus propre, je l'ai modifié sur ceux qui restés
         /// 
@@ -49,11 +47,17 @@ namespace Projet_Bibliothèque_Livre_CD
         /// Système de LOG ?!?!
         ///     - OK
         /// 
+        /// 3 avertissements "variable e" jamais utilisé
+        ///     - Corrigé, enlevé les arguments inutiles
+        ///     
         /// ============= APRES TOUT CA ============
+        /// ForEach de parcours des listes
         /// Gestion de la sauvegarde/restauration par fichier ou par BDD -> BDD EN COURS
         /// Comment gérer les emprunts dans la BDD ??!!
         /// SUPPRESSION D'UN ELEMENT !!
+        ///     - Commencé
         /// Ajouter les Summary de chaque méthodes et commenter toutes les portions de codes
-        /// Fautes d'orthographes => En cours // Genre y'en a !
+        /// Fautes d'orthographes => En cours 
+        /// -Genre y'en a !
     }
 }
