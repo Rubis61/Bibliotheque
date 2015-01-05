@@ -78,7 +78,6 @@ namespace Projet_Bibliothèque_Livre_CD
             catch (Exception e)
             {
                 result = false;
-                throw;
             }
 
             dbConnection.Close();
