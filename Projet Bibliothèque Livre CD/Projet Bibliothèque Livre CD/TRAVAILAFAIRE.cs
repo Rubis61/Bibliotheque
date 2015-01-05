@@ -65,5 +65,9 @@ namespace Projet_Bibliothèque_Livre_CD
         /// 
         /// Fautes d'orthographes => En cours 
         /// -Genre y'en a !!!!!!!
+        /// 
+        /// Conventions de nommages (PascalCase - camelCase)
+        /// 
+        /// attributs privées
     }
 }
