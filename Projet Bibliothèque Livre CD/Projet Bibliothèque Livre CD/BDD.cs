@@ -19,7 +19,6 @@ namespace Projet_Bibliothèque_Livre_CD
         public BDD() 
         { }
 
-        #region Livres
         public IEnumerable<Livre> getLivres()
         {
             dbConnection.Open();
@@ -101,6 +100,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return (result >= 1);
         }
+<<<<<<< HEAD
         #endregion
 
         #region CD
@@ -250,5 +250,7 @@ namespace Projet_Bibliothèque_Livre_CD
         }
         */
         #endregion
+=======
+>>>>>>> parent of 2be960d... BDD : ajouterCD, ajouterMusique
     }
 }

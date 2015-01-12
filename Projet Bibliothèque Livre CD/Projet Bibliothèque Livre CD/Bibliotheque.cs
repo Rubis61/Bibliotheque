@@ -72,6 +72,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
+<<<<<<< HEAD
         public bool SupprimerUnCD(string titre)
         {
             return ListCD.Remove(rechercherCD(titre));
@@ -81,6 +82,24 @@ namespace Projet_Bibliothèque_Livre_CD
             return ListLivres.Remove(rechercherLivre(titre));
    
         }
+=======
+        //public string SupprimerUnCD(string titre)
+        //{
+        //    try
+        //    {
+        //        return ListLivres.SingleOrDefault(livre => titre == livre.Titre);
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        return null;
+        //    }
+        //    catch
+        //    {
+        //        return null;
+        //    }
+        //}
+
+>>>>>>> parent of 2be960d... BDD : ajouterCD, ajouterMusique
 
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
