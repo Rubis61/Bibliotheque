@@ -130,12 +130,18 @@ namespace Projet_Bibliothèque_Livre_CD
         private static void TESTS()
         {
             BDD bdd = new BDD();
-
+            /*
             bool ok = bdd.ajouterLivre(new Livre(-1, "OK", 5, "456-654-789", "Moi", GenreDuLivre.Drame));
             ok = bdd.setNombreEnStock_Livre("OK", 10);
 
             List<Livre> livres = bdd.getLivres().ToList();
-            livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()
+            livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()*/
+            List<CD> cds = bdd.getCDs().ToList();
+
+            foreach (var cd in cds)
+            {
+                Console.WriteLine(cd.Titre);
+            }
         }
 
         private static void générerBDD()
