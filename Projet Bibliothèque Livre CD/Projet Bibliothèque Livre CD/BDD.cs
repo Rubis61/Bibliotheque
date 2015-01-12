@@ -19,6 +19,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public BDD() 
         { }
 
+        #region Livres
         public IEnumerable<Livre> getLivres()
         {
             dbConnection.Open();
@@ -100,5 +101,147 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return (result >= 1);
         }
+        #endregion
+
+        #region CD
+        private List<Musique> getMusiquesFromCD(int identifiant)
+        {
+            // dbConnection.Open();
+
+            List<Musique> musiques = new List<Musique>();
+
+            try
+            {
+                string sql_selectMusiques = "SELECT * FROM Musique where Musique.FK_CD = " + identifiant;
+                SQLiteCommand command = new SQLiteCommand(sql_selectMusiques, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    string titre = reader["Titre"] as string;
+                    int numero = reader.GetInt32(2);
+
+                    Musique musique = new Musique(titre, numero);
+                    musiques.Add(musique);
+                }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                musiques = null;
+            }
+
+            //dbConnection.Close();
+
+            return musiques;
+        }
+
+        private void ajouterMusique(Musique musique, int idCD)
+        {
+            try
+            {
+                string sql_insertMusique = "INSERT INTO Musique(FK_CD, Numero, Titre) VALUES(@fkcd, @Numero, @Titre);";
+                SQLiteCommand command = new SQLiteCommand(sql_insertMusique, dbConnection);
+                command.Parameters.AddWithValue("@fkcd", idCD);
+                command.Parameters.AddWithValue("@Numero", musique.Numero);
+                command.Parameters.AddWithValue("@Titre", musique.Titre);
+
+                SQLiteDataReader reader = command.ExecuteReader();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        
+        public IEnumerable<CD> getCDs()
+        {
+            dbConnection.Open();
+            List<CD> CDs = new List<CD>();
+
+            try
+            {
+                string sql_selectAllCDs = "SELECT * FROM CD";
+                SQLiteCommand command = new SQLiteCommand(sql_selectAllCDs, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    string titre = reader["Titre"] as string;
+                    int nbr = (reader["Nombre"] as int?).Value;
+                    string artiste = reader["Artiste"] as string;
+                    Style style;
+                    Enum.TryParse(reader["Style"] as string, true, out style);
+
+                    CD CD = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                    CDs.Add(CD);
+                }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                CDs = null;
+            }
+
+            dbConnection.Close();
+
+            return CDs;
+        }
+
+        
+        public bool ajouterCD(CD CD)
+        {
+            dbConnection.Open();
+
+            string sqlInsert_CD = "INSERT INTO CD(Titre, Nombre, Artiste, Style) VALUES(@Titre, @Nombre, @Artiste, @Style);";
+            SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@Titre", CD.Titre));
+            command.Parameters.Add(new SQLiteParameter("@Nombre", CD.NombreEnStock));
+            command.Parameters.Add(new SQLiteParameter("@Artiste", CD.Artiste));
+            command.Parameters.Add(new SQLiteParameter("@Style", CD.Style.ToString()));
+
+            bool result = false;
+            try
+            {
+                int nbrRowsInserted = command.ExecuteNonQuery();
+
+                result = (nbrRowsInserted >= 1);
+            }
+            catch (Exception e)
+            {
+                result = false;
+            }
+
+            foreach (var musique in CD.Musiques)
+            {
+                ajouterMusique(musique, CD.IdentifiantUnique);
+            }
+
+            dbConnection.Close();
+
+            return result;
+        }
+        /*
+        public bool setNombreEnStock_CD(string titre, int nombre)
+        {
+            dbConnection.Open();
+
+            string sqlInsert_CD = "UPDATE CD SET Nombre = @Nombre";// WHERE Titre = @Titre";
+            SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
+            command.Parameters.Add(new SQLiteParameter("@Titre", titre));
+            command.Parameters.Add(new SQLiteParameter("@Nombre", nombre));
+
+            int result = command.ExecuteNonQuery();
+
+            dbConnection.Close();
+
+            return (result >= 1);
+        }
+        */
+        #endregion
     }
 }
