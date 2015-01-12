@@ -192,9 +192,13 @@ namespace Projet_Bibliothèque_Livre_CD
             return CDs;
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> master
+=======
+
+>>>>>>> parent of 4e9e7d9... Tests
         
         public bool ajouterCD(CD CD)
         {

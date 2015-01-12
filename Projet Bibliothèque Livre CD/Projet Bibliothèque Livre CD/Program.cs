@@ -15,7 +15,7 @@ namespace Projet_Bibliothèque_Livre_CD
             // Activer cette ligne que pour générer la BDD, par exemple si modification
             /*/ générerBDD(); //*/
 
-            TESTS();
+            //TESTS();
 
             Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
@@ -138,13 +138,18 @@ namespace Projet_Bibliothèque_Livre_CD
             livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()*/
             List<CD> cds = bdd.getCDs().ToList();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> master
+=======
+
+>>>>>>> parent of 4e9e7d9... Tests
             foreach (var cd in cds)
             {
                 Console.WriteLine(cd.Titre);
             }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -156,6 +161,8 @@ namespace Projet_Bibliothèque_Livre_CD
             CD cdTest = new CD(0, "Essai", 1, "Moi", Style.Metal, musiques);
             bdd.ajouterCD(cdTest);
 >>>>>>> master
+=======
+>>>>>>> parent of 4e9e7d9... Tests
         }
 
         private static void générerBDD()
