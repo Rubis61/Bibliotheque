@@ -72,22 +72,15 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        //public string SupprimerUnCD(string titre)
-        //{
-        //    try
-        //    {
-        //        return ListLivres.SingleOrDefault(livre => titre == livre.Titre);
-        //    }
-        //    catch (InvalidOperationException)
-        //    {
-        //        return null;
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
-
+        public bool SupprimerUnCD(string titre)
+        {
+            return ListCD.Remove(rechercherCD(titre));
+        }
+        public bool SupprimerUnLivre(string titre)
+        {
+            return ListLivres.Remove(rechercherLivre(titre));
+   
+        }
 
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
