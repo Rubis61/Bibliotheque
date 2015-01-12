@@ -12,7 +12,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public LogApplication log = new LogApplication();
         public string saisieUtilisateur { get; set; }
         public static string pathOfLog { get; set; }
-        
+
         public void AfficherMenu()
         {
             Console.Clear();
@@ -301,12 +301,12 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
             Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
-
-            maListe.ForEach(delegate(Musique musique)
+            
+            foreach (var musique in maListe)
             {
-                Console.WriteLine(musique.Numero + " - " + musique.Titre);
-            });
-
+                Console.WriteLine(musique.Numero + " - " + musique.Titre);                
+            }
+            
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }

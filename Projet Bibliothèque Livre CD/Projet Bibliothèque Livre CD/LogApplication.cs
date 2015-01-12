@@ -12,6 +12,8 @@ namespace Projet_Bibliothèque_Livre_CD
         FileStream stream;
         public bool CréerUnFichierTexte(string path)
         {
+            if (File.Exists(path)) return true;
+
             try
             {
                 stream = File.Create(path);
@@ -20,7 +22,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
             catch(Exception)
             {
-                Console.WriteLine("Accès refusé où chemin d'accès non valide !");
+                Console.WriteLine("Accès refusé ou chemin d'accès non valide !");
                 Console.ReadKey();
            
                 return false;

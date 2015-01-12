@@ -159,6 +159,8 @@ namespace Projet_Bibliothèque_Livre_CD
             { // Si au moins un CD de disponible
                 cdAEmprunter.NombreEnStock--; // Prise du CD en stock
                 Emprunts.ajouterCD(cdAEmprunter); // Emprunt du CD
+
+                OnCDEmprunté(new EmpruntCDEventArgs(cdAEmprunter));
                 return "true";
             }
             else // Si pas de CD disponible

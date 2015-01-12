@@ -14,14 +14,13 @@ namespace Projet_Bibliothèque_Livre_CD
         public static Menu menu = new Menu();
         public static bool RunApplication()
         {
-       
+            do
             {
                 menu.AfficherMenu();
-                choixUtilisateur = Console.ReadKey().KeyChar.ToString();
-                
+                choixUtilisateur = Console.ReadLine();//ReadKey().KeyChar.ToString();       
             }
-            while (choixUtilisateur != "1" && choixUtilisateur != "2" && choixUtilisateur != "3" && choixUtilisateur != "4" && choixUtilisateur != "5" && choixUtilisateur != "6" && choixUtilisateur != "7" && 
-                   choixUtilisateur != "8" && choixUtilisateur != "9" && choixUtilisateur != "0");
+            while (choixUtilisateur != "1" && choixUtilisateur != "2" && choixUtilisateur != "3" && choixUtilisateur != "4" && choixUtilisateur != "5" && choixUtilisateur != "6" && choixUtilisateur != "7" &&
+                   choixUtilisateur != "8" && choixUtilisateur != "9" && choixUtilisateur != "10" && choixUtilisateur != "11" && choixUtilisateur != "0");
 
             Console.Clear();
 

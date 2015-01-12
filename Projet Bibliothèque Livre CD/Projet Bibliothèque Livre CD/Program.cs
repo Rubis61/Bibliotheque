@@ -17,20 +17,14 @@ namespace Projet_Bibliothèque_Livre_CD
 
             //TESTS();
 
-            //Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
+            Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
                     Console.WriteLine(livre.livreEmprunté.ToString());
                 */
+            Application.menu.bibliotheque.cdEmprunté += bibliotheque_CDEmprunté;
+            
 
-            Console.Write("Démarrage de l'application : ");
-
-            for (int i = 0; i < 20; i++)
-            {
-                Console.Write("█");
-                System.Threading.Thread.Sleep(50);
-            }
-
-            Console.Clear();
+            DémarrerApplication();
 
             Menu menu = new Menu();
             bool erreur;
@@ -45,13 +39,7 @@ namespace Projet_Bibliothèque_Livre_CD
             
             while (Application.RunApplication()) ;
 
-            Console.Write("Arrêt de l'application : ");
-            
-            for( int i=0 ; i<20 ; i++ )
-            {
-                Console.Write("█");
-                System.Threading.Thread.Sleep(100);
-            }
+            ArrêterApplication();
 
             /*/
             //////////////////////////////////////////////-Test 1-////////////////////////////////////////////////////////////////////
@@ -99,6 +87,32 @@ namespace Projet_Bibliothèque_Livre_CD
 
             Console.ReadKey(); // Attend avant de fermer le programme
             //*/
+        }
+
+        private static void ArrêterApplication()
+        {
+            Console.Write("Arrêt de l'application : ");
+
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write("█");
+                System.Threading.Thread.Sleep(50);
+            }
+
+            Console.Clear();
+        }
+
+        private static void DémarrerApplication()
+        {
+            Console.Write("Démarrage de l'application : ");
+
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write("█");
+                System.Threading.Thread.Sleep(50);
+            }
+
+            Console.Clear();
         }
 
         private static void bibliotheque_LivreEmprunté(Object sender, EmpruntLivreEventArgs e)
