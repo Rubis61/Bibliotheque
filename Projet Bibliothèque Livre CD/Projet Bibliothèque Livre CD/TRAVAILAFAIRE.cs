@@ -68,6 +68,10 @@ namespace Projet_Bibliothèque_Livre_CD
         /// 
         /// Conventions de nommages (PascalCase - camelCase)
         /// 
+<<<<<<< HEAD
         /// attributs privées    
+=======
+        /// attributs privées  
+>>>>>>> parent of 99bc0d6... c
     }
 }

@@ -191,7 +191,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return CDs;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
         
         public bool ajouterCD(CD CD)
         {
