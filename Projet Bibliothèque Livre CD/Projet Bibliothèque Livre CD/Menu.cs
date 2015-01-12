@@ -209,13 +209,9 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void SupprimerUnLivre()
         {
-            Livre livre;
-            Console.WriteLine("Vous voulez supprimer un livre.");
-            Console.WriteLine();
-
             do
             {
-                Console.WriteLine("Quel est le titre du livre que vous voulez supprimer ?");
+                Console.WriteLine("Quel est le titre du livre que vous voulez enlever de la bibliothèque ?");
                 Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
 
@@ -224,26 +220,21 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                livre = bibliotheque.rechercherLivre(saisieUtilisateur);
-
-                Console.WriteLine();
-
-                if (livre == null)
+                if (bibliotheque.SupprimerUnLivre(saisieUtilisateur) == true)
                 {
-                    Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                    bibliotheque.SupprimerUnLivre(saisieUtilisateur);
+                    Console.WriteLine("Le livre a bien était supprimé");
                     Console.WriteLine();
+                    log.WriteMessage(DateTime.Now.ToString() + " : " + "Supression du livre : " + saisieUtilisateur);
+                    AppuyerSurUneTouchePourContinuer();
+                    return;
                 }
                 else
                 {
-                    Console.WriteLine("Le livre a bien été supprimé : ");
-                    livre.NombreEnStock--;
+                    Console.WriteLine("Le livre n'existe pas.");
                 }
             }
-            while (livre == null);
-
-            Console.WriteLine();
-            AppuyerSurUneTouchePourContinuer();
-
+            while (bibliotheque.SupprimerUnLivre(saisieUtilisateur) == false);
         }
 
         public void RechercherCDParTitre()
@@ -276,6 +267,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     Console.WriteLine("Le CD a bien été trouvé : ");
                     Console.WriteLine("    " + cd.ToString());
+                    log.WriteMessage(DateTime.Now.ToString() + " : " + "Recherche du CD : " + saisieUtilisateur);
                 }
             }
             while (cd == null);
@@ -306,7 +298,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 Console.WriteLine(musique.Numero + " - " + musique.Titre);                
             }
-            
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Ajout du CD " + titre + " dans la bibliothèque avec comme artiste " + artiste + " et comme genre " + saisieUtilisateur.ToUpper());
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }
@@ -343,6 +335,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
             }
             while (erreur == false);
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Le Cd " + saisieUtilisateur + " a été emprunter.");
             Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été emprunté");
             Console.ReadLine();
         }
@@ -370,15 +363,38 @@ namespace Projet_Bibliothèque_Livre_CD
                 else Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été rapporté");
             }
             while (cdRamené == false);
-
+            log.WriteMessage(DateTime.Now.ToString() + " : " + "Le Cd " + saisieUtilisateur + " a était rapporté.");
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }
         public void SupprimerUnCD()
         {
-            Console.WriteLine("Quel est le titre du livre ou CD que vous voulez enlever de la bibliothèque ?");
-            Console.WriteLine("Sinon tapez 'retour' pour annuler");
+            do
+            {
+                Console.WriteLine("Quel est le titre du CD que vous voulez enlever de la bibliothèque ?");
+                Console.WriteLine("Sinon tapez 'retour' pour annuler");
+                saisieUtilisateur = Console.ReadLine().ToString();
 
+                if (saisieUtilisateur.ToLower() == "retour")
+                {
+                    return;
+                }
+
+                if (bibliotheque.SupprimerUnCD(saisieUtilisateur) == true)
+                {
+                    bibliotheque.SupprimerUnCD(saisieUtilisateur);
+                    Console.WriteLine("Le CD a bien était supprimé");
+                    Console.WriteLine();
+                    log.WriteMessage(DateTime.Now.ToString() + " : " + "Suppresion du CD " + saisieUtilisateur);
+                    AppuyerSurUneTouchePourContinuer();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Le CD n'existe pas.");
+                }
+            }
+            while (bibliotheque.SupprimerUnCD(saisieUtilisateur) == false);
         }
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()

@@ -72,11 +72,15 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public void SupprimerUnCD(string titre)
+        public bool SupprimerUnCD(string titre)
         {
-            ListCD.Remove(rechercherCD(titre));
+            return ListCD.Remove(rechercherCD(titre));
         }
-
+        public bool SupprimerUnLivre(string titre)
+        {
+            return ListLivres.Remove(rechercherLivre(titre));
+   
+        }
 
         public void ajouterLivre(string titre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
