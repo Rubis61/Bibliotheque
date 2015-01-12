@@ -34,6 +34,7 @@ namespace Projet_Bibliothèque_Livre_CD
         /// Gérer le retour de "emprunterLivre" et "emprunterCD", est ce que l'on gère 3 états ? genre true = emprunté, false = nombre pas disponible et null = livre non trouvé ?
         ///     - OK, remplacé le booléen par un string que je convert en booleen, si ça plante, c'est que c'est null donc livre non trouvé, sinon c'est true où false
         ///     - + ajout d'un message pour savoir pourquoi ça plante ( l'utilisateur sait que le livre n'existe pas / ou qu'il n'est plus en stock)
+        ///     - ?bool
         ///     
         /// Parfois le programme ne s'arrete pas lorsque je fais "o" dans "VoulezVousContinuez" --> je l'ai corrigé ! cf : boucle principale dans Program
         ///     - OK
@@ -43,7 +44,7 @@ namespace Projet_Bibliothèque_Livre_CD
         /// 
         /// Pas con le ToLower() j'y avais pas pensé, c'plus propre, je l'ai modifié sur ceux qui restés
         /// 
-        /// Fun le petit launcher, j'ai baissé un peu le sleep, un peu long xD
+        /// Fun le petit launcher, j'ai baissé un peu le sleep, un peu long
         /// 
         /// Système de LOG ?!?!
         ///     - OK
@@ -51,19 +52,22 @@ namespace Projet_Bibliothèque_Livre_CD
         /// 3 avertissements "variable e" jamais utilisé
         ///     - Corrigé, enlevé les arguments inutiles
         ///     
-        /// ============= APRES TOUT CA ============
-        /// ForEach de parcours des listes
-        /// Gestion de la sauvegarde/restauration par fichier ou par BDD -> BDD EN COURS
-        /// Comment gérer les emprunts dans la BDD ??!!
-        /// 
-        /// SUPPRESSION D'UN ELEMENT !!
-        ///     - Commencé
+        ///SUPPRESSION D'UN ELEMENT !!
+        ///     - OK
         ///     
-        /// Ajouter les Summary de chaque méthodes et commenter toutes les portions de codes
-        /// -Pas sur que ça soit top top, le prof est pas fan des commentaires, je pense qu'il vaut mieux en mettre de petit bien placés qu'un gros pavé (faut en discuter / limite poser la question au prof^^)
+        /// ForEach de parcours des listes
+        ///     - OK
+        ///     
+        /// Comment gérer les emprunts dans la BDD ??!!   
+        ///     - OK
+        /// ============= APRES TOUT CA ============
         /// 
+        /// Gestion de la sauvegarde/restauration par fichier ou par BDD -> BDD EN COURS
         /// 
         /// Fautes d'orthographes => En cours 
-        /// -Genre y'en a !!!!!!!
+        /// 
+        /// Conventions de nommages (PascalCase - camelCase)
+        /// 
+        /// attributs privées
     }
 }
