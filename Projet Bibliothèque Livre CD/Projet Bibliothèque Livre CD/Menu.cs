@@ -320,8 +320,9 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                cd = bibliotheque.rechercherCD(saisieUtilisateur);
-
+                if (IsLocal) cd = bibliotheque.rechercherCD(saisieUtilisateur);
+                else cd = bdd.rechercherCD(saisieUtilisateur);
+                
                 Console.WriteLine();
 
                 if (cd == null)
@@ -353,14 +354,22 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est l'artiste du CD?");
             string artiste = Console.ReadLine();
 
-            List<Musique> maListe = CD.remplirListeDeMusique();
-            bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
+            Console.WriteLine("Combien de cd disponibles ?");
+            int nombre = 1;
+            while( int.TryParse(Console.ReadLine(), out nombre) ) ;
+
+            List<Musique> listMusiques = CD.remplirListeDeMusique();
+
+            Style style = AfficherEtSaisirStyleDuCD();
+
+            if (IsLocal) bibliotheque.ajouterCD(titre, artiste, style, listMusiques);
+            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
             Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
             
-            foreach (var musique in maListe)
+            foreach (var musique in listMusiques)
             {
                 Console.WriteLine(musique.Numero + " - " + musique.Titre);                
             }
@@ -381,7 +390,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
-                    erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
+                    if (IsLocal) erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
+                    else erreur = bdd.EmprunterUnCD(saisieUtilisateur);
 
                     if (erreur == false)
                     {
@@ -422,7 +432,10 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
-                cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+
+                if (IsLocal) cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+                else cdRamené = bdd.ramenerUnCd(saisieUtilisateur);
+
                 if (cdRamené == false)
                 {
                     Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
@@ -438,6 +451,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void SupprimerUnCD()
         {
+            bool result = false;
             do
             {
                 Console.WriteLine("Quel est le titre du CD que vous voulez enlever de la bibliothèque ?");
@@ -448,11 +462,14 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
+                
+                if (IsLocal) result = bibliotheque.SupprimerUnCD(saisieUtilisateur);
+                else result = bdd.SupprimerUnCD(saisieUtilisateur);
 
-                if (bibliotheque.SupprimerUnCD(saisieUtilisateur) == true)
+                if (result)
                 {
                     bibliotheque.SupprimerUnCD(saisieUtilisateur);
-                    Console.WriteLine("Le CD a bien était supprimé");
+                    Console.WriteLine("Le CD a bien été supprimé");
                     Console.WriteLine();
                     log.WriteMessage(DateTime.Now.ToString() + " : " + "Suppresion du CD " + saisieUtilisateur);
                     AppuyerSurUneTouchePourContinuer();
@@ -463,7 +480,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("Le CD n'existe pas.");
                 }
             }
-            while (bibliotheque.SupprimerUnCD(saisieUtilisateur) == false);
+            while (result == false);
         }
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()
@@ -519,7 +536,12 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est le nom du fichier de log?");
             Console.WriteLine("Exemple : monfichierlog.txt");
             string name = Console.ReadLine();
-            pathOfLog = path + @"\" + name;
+            if( path == "" )
+            {
+                pathOfLog = name;
+            }
+            else pathOfLog = path + @"\" + name;
+
             return pathOfLog;
         }
         public void ChoixLocalOuBDD()

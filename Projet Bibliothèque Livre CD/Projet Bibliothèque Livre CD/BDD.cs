@@ -62,7 +62,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 dbConnection.Open();
 
-                string sql_selectAllLivres = "SELECT * FROM Livre WHERE NbEmprunts >= 0";
+                string sql_selectAllLivres = "SELECT * FROM Livre WHERE NbEmprunts >= 1";
                 SQLiteCommand command = new SQLiteCommand(sql_selectAllLivres, dbConnection);
                 SQLiteDataReader reader = command.ExecuteReader();
 
