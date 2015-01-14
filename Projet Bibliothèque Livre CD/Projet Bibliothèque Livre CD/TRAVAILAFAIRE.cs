@@ -16,7 +16,7 @@ namespace Projet_Bibliothèque_Livre_CD
         ///emprunter un livre : t'as du copier coller l'emprunter un CD, y'a des choses qui sont pas bonnes (class : Bibliothèque / méthode : emprunterUnLivre)
         ///      - Corrigé
         ///      
-        //deux fois la méthode ajouterLivre normal? (class : Bibliotheque / méthode : ajouterLivre) 
+        //deux fois la méthode ajouterLivre normal? (class : Bibliotheque / méthode : ajouterLivre)  
         ///      - !! OUI C'EST NORMAL !! y'en a une qui me sert en privée dans la classe et l'autre publique pour les autres classes
         ///      
         ///quand t'emprunte un CD ou un livre le stock est pas géré, tu peux emprunter 40 fois le truk
