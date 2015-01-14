@@ -90,9 +90,8 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             dbConnection.Open();
 
-            string updateLivreEmprunter = "UPDATE Livre SET Nombre = @Nombre, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";    
+            string updateLivreEmprunter = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";    
             SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
-            command.Parameters.AddWithValue("@Nombre", updateLivreEmprunter);
 
             bool result = false;
             try
@@ -130,6 +129,58 @@ namespace Projet_Bibliothèque_Livre_CD
 
             dbConnection.Close();
             return result;
+        }
+        public void RamenerUnLivre(Livre livre)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE Livre.Titre =  @Titre";
+                command = new SQLiteCommand(sql_UpdateNombreLivre, dbConnection);
+                command.Parameters.AddWithValue("@Titre", livre.Titre);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            dbConnection.Close();
+        }
+        public Livre RechercherLivre(string titreLivre)
+        {
+            Livre livre = null;
+            try
+            {
+                dbConnection.Open();
+
+                string sql_SelectLivre = "SELECT * FROM Livre WHERE Livre.Titre = @Titre";
+                command = new SQLiteCommand(sql_SelectLivre, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titreLivre);
+
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string titre = reader["Titre"] as string;
+                    int nbr = (reader["Nombre"] as int?).Value;
+                    string auteur = reader["Auteur"] as string;
+                    string ISBN = reader["NumeroISBN"] as string;
+                    GenreDuLivre genre;
+                    Enum.TryParse(reader["Genre"] as string, true, out genre);
+                    livre = new Livre(id, titre, nbr, ISBN, auteur, genre);
+                }
+            }
+            catch (Exception)
+            {
+                livre = null;
+            }
+
+            dbConnection.Close();
+
+            return livre;
         }
         #endregion
 
