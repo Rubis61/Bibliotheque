@@ -363,7 +363,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Style style = AfficherEtSaisirStyleDuCD();
 
             if (IsLocal) bibliotheque.ajouterCD(titre, artiste, style, listMusiques);
-            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
+            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques )); 
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
