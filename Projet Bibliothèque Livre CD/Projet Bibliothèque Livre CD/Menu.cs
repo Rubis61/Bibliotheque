@@ -40,19 +40,39 @@ namespace Projet_Bibliothèque_Livre_CD
         {
             log.WriteMessage(DateTime.Now.ToString() + " : " + "Listez la bibliothèque");
 
+            List<Livre> listLivres = null;
+            List<CD> listCD = null;
+            List<Livre> listLivresEmpruntés = null;
+            List<CD> listCDsEmpruntés = null;
+
+            if( IsLocal )
+            {
+                listLivres = bibliotheque.ListLivres;
+                listCD = bibliotheque.ListCD;
+                listLivresEmpruntés = bibliotheque.Emprunts.LivresEmpruntés;
+                listCDsEmpruntés = bibliotheque.Emprunts.CDEmpruntés;
+            }
+            else
+            {
+                listLivres = bdd.getLivres().ToList();
+                listCD = bdd.getCDs().ToList();
+                listLivresEmpruntés = bdd.getLivresEmpruntés().ToList();
+                listCDsEmpruntés = bdd.getCDsEmpruntés().ToList();
+            }
+
             Console.WriteLine("/////////////////////////////////////////////////////////////////////////");
             Console.WriteLine("//                            Bibliothèque                             //");
             Console.WriteLine("/////////////////////////////////////////////////////////////////////////");
             Console.WriteLine();
             Console.WriteLine("///////////////////////////////DISPONIBLES///////////////////////////////");
             Console.WriteLine("CDs : ");
-            foreach (var cd in bibliotheque.ListCD)
+            foreach (var cd in listCD)
             {
                 Console.WriteLine(cd.ToString());
             }
             Console.WriteLine();
             Console.WriteLine("Livres : ");
-            foreach (var livre in bibliotheque.ListLivres)
+            foreach (var livre in listLivres)
             {
                 Console.WriteLine(livre.ToString());
             }
@@ -60,13 +80,13 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             Console.WriteLine("///////////////////////////////EMPRUNTS//////////////////////////////////");
             Console.WriteLine("CDs : ");
-            foreach (var cd in bibliotheque.Emprunts.CDEmpruntés)
+            foreach (var cd in listCDsEmpruntés)
             {
                 Console.WriteLine(cd.ToString());
             }
             Console.WriteLine();
             Console.WriteLine("Livres : ");
-            foreach (var livre in bibliotheque.Emprunts.LivresEmpruntés)
+            foreach (var livre in listLivresEmpruntés)
             {
                 Console.WriteLine(livre.ToString());
             }
