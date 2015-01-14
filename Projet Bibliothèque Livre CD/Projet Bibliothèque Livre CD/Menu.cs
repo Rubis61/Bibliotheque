@@ -13,6 +13,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public LogApplication log = new LogApplication();
         public string saisieUtilisateur { get; set; }
         public static string pathOfLog { get; set; }
+        public bool IsLocal { get; set; }
 
         public void AfficherMenu()
         {
@@ -460,6 +461,21 @@ namespace Projet_Bibliothèque_Livre_CD
             string name = Console.ReadLine();
             pathOfLog = path + @"\" + name;
             return pathOfLog;
+        }
+        public void ChoixLocalOuBDD()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Voulez vous travailler en local où en BDD?");
+                Console.WriteLine("Tapez 'Local' ou 'BDD' pour choisir sur quel support travailler");
+                saisieUtilisateur = Console.ReadLine().ToString();
+            } while (saisieUtilisateur.ToUpper() != "LOCAL" || saisieUtilisateur.ToUpper() != "BDD");
+            if (saisieUtilisateur.ToUpper() == "LOCAL")
+            {
+                IsLocal = true;
+            }
+            else IsLocal = false;
         }
     }
 }
