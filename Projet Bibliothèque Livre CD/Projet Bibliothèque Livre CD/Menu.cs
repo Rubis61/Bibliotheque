@@ -89,7 +89,16 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est le numéro ISBN du livre?");
             string ISBN = Console.ReadLine();
 
-            bibliotheque.ajouterLivre(titre, ISBN, auteur, AfficherEtSaisirGenreDuLivre());
+            GenreDuLivre genre = AfficherEtSaisirGenreDuLivre();
+            if (IsLocal)
+            {
+                bibliotheque.ajouterLivre(titre, ISBN, auteur, genre);
+            }
+            else
+            {
+                Livre livre = new Livre(0, titre, 1, ISBN, auteur, genre);
+                bdd.AjouterLivre(livre);
+            }
 
             Console.WriteLine();
             Console.WriteLine("Le livre \"" + titre + "\" de l'auteur \"" + auteur + "\" a bien été ajouté avec ");
@@ -114,8 +123,14 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
-                    erreur = Boolean.Parse(bibliotheque.emprunterLivre(saisieUtilisateur));
-
+                    if (IsLocal)
+                    {
+                        erreur = Boolean.Parse(bibliotheque.emprunterLivre(saisieUtilisateur));
+                    }
+                    else
+                    {
+                        erreur = bdd.EmprunterUnLivre(saisieUtilisateur);
+                    }
                     if(erreur == false)
                     {
                         Console.WriteLine("Le livre n'est plus disponible ! Revenez plus tard ;)");
@@ -158,15 +173,28 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
-                livreRamené = bibliotheque.restituerLivre(saisieUtilisateur);
-                if (livreRamené == false)
+                if (IsLocal)
                 {
-                    Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
-                    Console.WriteLine();
+                    livreRamené = bibliotheque.restituerLivre(saisieUtilisateur);
+                    if (livreRamené == false)
+                    {
+                        Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                        Console.WriteLine();
+                    }
+                    else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
                 }
-                else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
-            }
-            while (livreRamené == false);
+                else
+                {
+                    livreRamené = bdd.RamenerUnLivre(saisieUtilisateur);
+                    if (livreRamené == false)
+                    {
+                        Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
+                        Console.WriteLine();
+                    }
+                    else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
+                }
+
+            } while (livreRamené == false);
 
             log.WriteMessage(DateTime.Now.ToString() + " : " + "Emprunt du livre " + saisieUtilisateur);
 
@@ -191,8 +219,14 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                livre = bibliotheque.rechercherLivre(saisieUtilisateur);
-
+                if (IsLocal)
+                {
+                    livre = bibliotheque.rechercherLivre(saisieUtilisateur);
+                }
+                else
+                {
+                    livre = bdd.RechercherLivre(saisieUtilisateur);
+                }
                 Console.WriteLine();
 
                 if (livre == null)
@@ -215,6 +249,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void SupprimerUnLivre()
         {
+            bool result = false;
             do
             {
                 Console.WriteLine("Quel est le titre du livre que vous voulez enlever de la bibliothèque ?");
@@ -225,10 +260,14 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
-
-                if (bibliotheque.SupprimerUnLivre(saisieUtilisateur) == true)
+                if (IsLocal)
                 {
-                    bibliotheque.SupprimerUnLivre(saisieUtilisateur);
+                    result = bibliotheque.SupprimerUnLivre(saisieUtilisateur);
+                }
+                else result = bdd.SupprimerUnLivre(saisieUtilisateur);
+
+                if (result)
+                {
                     Console.WriteLine("Le livre a bien était supprimé");
                     Console.WriteLine();
                     log.WriteMessage(DateTime.Now.ToString() + " : " + "Supression du livre : " + saisieUtilisateur);
@@ -240,7 +279,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("Le livre n'existe pas.");
                 }
             }
-            while (bibliotheque.SupprimerUnLivre(saisieUtilisateur) == false);
+            while (result == false);
         }
 
         public void RechercherCDParTitre()

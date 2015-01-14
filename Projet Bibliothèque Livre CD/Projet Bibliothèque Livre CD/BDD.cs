@@ -128,23 +128,24 @@ namespace Projet_Bibliothèque_Livre_CD
             dbConnection.Close();
             return result;
         }
-        public void RamenerUnLivre(Livre livre)
+        public bool RamenerUnLivre(string livre)
         {
+            bool result;
             try
-            {
+            {              
                 dbConnection.Open();
-
                 string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE Livre.Titre =  @Titre";
                 command = new SQLiteCommand(sql_UpdateNombreLivre, dbConnection);
-                command.Parameters.AddWithValue("@Titre", livre.Titre);
+                command.Parameters.AddWithValue("@Titre", livre);
                 command.ExecuteNonQuery();
+                result = true;
             }
             catch (Exception)
             {
-
+                result =  false;
             }
-
             dbConnection.Close();
+            return result;
         }
         public Livre RechercherLivre(string titreLivre)
         {
