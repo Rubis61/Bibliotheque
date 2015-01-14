@@ -15,7 +15,7 @@ namespace Projet_Bibliothèque_Livre_CD
         private static SQLiteConnection dbConnection = new SQLiteConnection(connectionString);
 
         private static SQLiteCommand command;
-
+        
         public BDD() 
         { }
 
