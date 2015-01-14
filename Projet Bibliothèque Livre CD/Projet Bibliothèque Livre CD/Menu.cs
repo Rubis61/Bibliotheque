@@ -109,15 +109,18 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est le numéro ISBN du livre?");
             string ISBN = Console.ReadLine();
 
+            Console.WriteLine("Combien de livre à ajouter ?");
+            int nombre = 0;
+            while (nombre == 0) int.TryParse(Console.ReadLine(), out nombre);
+
             GenreDuLivre genre = AfficherEtSaisirGenreDuLivre();
             if (IsLocal)
             {
-                bibliotheque.ajouterLivre(titre, ISBN, auteur, genre);
+                bibliotheque.ajouterLivre(titre, nombre, ISBN, auteur, genre);
             }
             else
             {
-                Livre livre = new Livre(0, titre, 1, ISBN, auteur, genre);
-                bdd.AjouterLivre(livre);
+                bdd.AjouterLivre(new Livre(0, titre, nombre, ISBN, auteur, genre));
             }
 
             Console.WriteLine();
@@ -354,16 +357,16 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est l'artiste du CD?");
             string artiste = Console.ReadLine();
 
-            Console.WriteLine("Combien de cd disponibles ?");
-            int nombre = 1;
-            while( int.TryParse(Console.ReadLine(), out nombre) ) ;
+            Console.WriteLine("Combien de cd à ajouter ?");
+            int nombre = 0;
+            while (nombre == 0 ) int.TryParse(Console.ReadLine(), out nombre);
 
             List<Musique> listMusiques = CD.remplirListeDeMusique();
 
             Style style = AfficherEtSaisirStyleDuCD();
 
-            if (IsLocal) bibliotheque.ajouterCD(titre, artiste, style, listMusiques);
-            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques )); 
+            if (IsLocal) bibliotheque.ajouterCD(titre, nombre, artiste, style, listMusiques);
+            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
@@ -438,7 +441,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 if (cdRamené == false)
                 {
-                    Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
+                    Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ou n'a pas été emprunté ! Veuillez recommencer !");
                     Console.WriteLine();
                 }
                 else Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été rapporté");

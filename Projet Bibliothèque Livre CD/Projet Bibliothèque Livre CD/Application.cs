@@ -64,13 +64,9 @@ namespace Projet_Bibliothèque_Livre_CD
         
         public static void générerDonnées()
         {
-            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
-            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
-            menu.bibliotheque.ajouterLivre("Bible", "123", "Dieu", GenreDuLivre.Religieux);
+            menu.bibliotheque.ajouterLivre("Bible", 3, "123", "Dieu", GenreDuLivre.Religieux);
 
-            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
-            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
-            menu.bibliotheque.ajouterCD("7eme symphonie", "Mozart", Style.Classique, new List<Musique>());
+            menu.bibliotheque.ajouterCD("7eme symphonie", 3, "Mozart", Style.Classique, new List<Musique>());
 
             menu.bibliotheque.emprunterCD("7eme symphonie");
             menu.bibliotheque.emprunterLivre("Bible");

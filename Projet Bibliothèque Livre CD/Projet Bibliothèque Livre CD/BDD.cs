@@ -70,7 +70,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
                     string titre = reader["Titre"] as string;
-                    int nbr = (reader["Nombre"] as int?).Value;
+                    int nbr = (reader["NbEmprunts"] as int?).Value;
                     string auteur = reader["Auteur"] as string;
                     string ISBN = reader["NumeroISBN"] as string;
                     GenreDuLivre genre;
@@ -164,6 +164,7 @@ namespace Projet_Bibliothèque_Livre_CD
             dbConnection.Close();
             return result;
         }
+
         public bool RamenerUnLivre(string livre)
         {
             bool result;
@@ -183,6 +184,7 @@ namespace Projet_Bibliothèque_Livre_CD
             dbConnection.Close();
             return result;
         }
+
         public Livre RechercherLivre(string titreLivre)
         {
             Livre livre = null;
@@ -320,7 +322,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
                     string titre = reader["Titre"] as string;
-                    int nbr = (reader["Nombre"] as int?).Value;
+                    int nbr = (reader["NbEmprunts"] as int?).Value;
                     string artiste = reader["Artiste"] as string;
                     Style style;
                     Enum.TryParse(reader["Style"] as string, true, out style);
@@ -348,12 +350,12 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 dbConnection.Open();
 
-                string sql_UpdateNombreCd = "UPDATE CD SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE CD.Titre =  @Titre";
+                string sql_UpdateNombreCd = "UPDATE CD SET Nombre = Nombre + 1, NbEmprunts = NbEmprunts - 1 WHERE Titre = @Titre AND NbEmprunts >= 1;";
                 command = new SQLiteCommand(sql_UpdateNombreCd, dbConnection);
                 command.Parameters.AddWithValue("@Titre", titre);
 
-                int nbrRowsInserted = command.ExecuteNonQuery();
-                result = (nbrRowsInserted >= 1);
+                int nbrRowsUpdated = command.ExecuteNonQuery();
+                result = (nbrRowsUpdated >= 1);
             }
             catch (Exception)
             {
