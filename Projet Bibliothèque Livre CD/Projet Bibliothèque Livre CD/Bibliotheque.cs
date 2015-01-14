@@ -45,10 +45,10 @@ namespace Projet_Bibliothèque_Livre_CD
             Emprunts = emprunts;
         }
 
-        public void ajouterCD(string titre, string artiste, Style style, List<Musique> musiques)
+        public void ajouterCD(string titre, int nombre, string artiste, Style style, List<Musique> musiques)
         {
             int idNouveauCd = ListCD.Count;
-            CD nouveauCD = new CD(idNouveauCd, titre, 1, artiste, style, musiques);
+            CD nouveauCD = new CD(idNouveauCd, titre, nombre, artiste, style, musiques);
 
             if (ListCD.Where(cd => cd.Titre == nouveauCD.Titre).Count() >= 1)
             {

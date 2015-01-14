@@ -326,7 +326,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return cd;
         }
         
-        public bool ajouterCD(CD CD)
+        public bool ajouterCD(string titre, int nombre, string artiste, Style style, IEnumerable<Musique> listeMusiques)
         {
             bool result = false;
             try
@@ -335,10 +335,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 string sqlInsert_CD = "INSERT INTO CD(Titre, Nombre, Artiste, Style) VALUES(@Titre, @Nombre, @Artiste, @Style);";
                 SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
-                command.Parameters.AddWithValue("@Titre", CD.Titre);
-                command.Parameters.AddWithValue("@Nombre", CD.NombreEnStock);
-                command.Parameters.AddWithValue("@Artiste", CD.Artiste);
-                command.Parameters.AddWithValue("@Style", CD.Style.ToString());
+                command.Parameters.AddWithValue("@Titre", titre);
+                command.Parameters.AddWithValue("@Nombre", nombre);
+                command.Parameters.AddWithValue("@Artiste", artiste);
+                command.Parameters.AddWithValue("@Style", style.ToString());
 
                 int nbrRowsInserted = command.ExecuteNonQuery();
 
@@ -349,9 +349,9 @@ namespace Projet_Bibliothèque_Livre_CD
                 result = false;
             }
 
-            foreach (var musique in CD.Musiques)
+            foreach (var musique in listeMusiques)
             {
-                ajouterMusique(musique, CD.IdentifiantUnique);
+                ajouterMusique(musique, rechercherCD(titre).IdentifiantUnique);
             }
 
             dbConnection.Close();
