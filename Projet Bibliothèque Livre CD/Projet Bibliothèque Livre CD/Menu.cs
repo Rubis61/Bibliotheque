@@ -271,7 +271,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("Le livre a bien était supprimé");
                     Console.WriteLine();
                     log.WriteMessage(DateTime.Now.ToString() + " : " + "Supression du livre : " + saisieUtilisateur);
-                    AppuyerSurUneTouchePourContinuer(); 
+                    AppuyerSurUneTouchePourContinuer();  
                     return;
                 }
                 else
