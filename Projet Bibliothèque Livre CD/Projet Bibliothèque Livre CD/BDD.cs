@@ -109,6 +109,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return result;
 
         }
+
         public bool SupprimerUnLivre(string titre)
         {
             dbConnection.Open();
@@ -222,8 +223,9 @@ namespace Projet_Bibliothèque_Livre_CD
             return CDs;
         }
 
-        public void ramenerUnCd(CD cd)
+        public bool ramenerUnCd(CD cd)
         {
+            bool result = false;
             try
             {
                 dbConnection.Open();
@@ -232,14 +234,16 @@ namespace Projet_Bibliothèque_Livre_CD
                 command = new SQLiteCommand(sql_UpdateNombreCd, dbConnection);
                 command.Parameters.AddWithValue("@Titre", cd.Titre);
 
-                command.ExecuteNonQuery();
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
             }
             catch (Exception)
             {
-
+                result = false;
             }
 
             dbConnection.Close();
+            return result;
         }
 
         public CD rechercherCD(string titreCD)
@@ -310,23 +314,52 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return result;
         }
-        /*
-        public bool setNombreEnStock_CD(string titre, int nombre)
+
+        public bool EmprunterUnCD(string titre)
+        {
+            bool result = false;
+            try
+            {
+                dbConnection.Open();
+
+                string updateCDEmprunter = "UPDATE CD SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";
+                SQLiteCommand command = new SQLiteCommand(updateCDEmprunter, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titre);
+
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
+            }
+            catch
+            {
+                result = false;
+            }
+
+            dbConnection.Close();
+            return result;
+        }
+
+        public bool SupprimerUnCD(string titre)
         {
             dbConnection.Open();
 
-            string sqlInsert_CD = "UPDATE CD SET Nombre = @Nombre";// WHERE Titre = @Titre";
-            SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@Titre", titre));
-            command.Parameters.Add(new SQLiteParameter("@Nombre", nombre));
+            string supprimerCD = "DELETE FROM CD WHERE Titre = @Titre";
+            SQLiteCommand command = new SQLiteCommand(supprimerCD, dbConnection);
+            command.Parameters.AddWithValue("@Titre", titre);
 
-            int result = command.ExecuteNonQuery();
+            bool result = false;
+            try
+            {
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
+            }
+            catch
+            {
+                result = false;
+            }
 
             dbConnection.Close();
-
-            return (result >= 1);
+            return result;
         }
-        */
         #endregion
     }
 }
