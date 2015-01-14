@@ -55,6 +55,41 @@ namespace Projet_Bibliothèque_Livre_CD
             return livres;
         }
 
+        public IEnumerable<Livre> getLivresEmpruntés()
+        {
+            List<Livre> livres = new List<Livre>();
+            try
+            {
+                dbConnection.Open();
+
+                string sql_selectAllLivres = "SELECT * FROM Livre WHERE NbEmprunts >= 0";
+                SQLiteCommand command = new SQLiteCommand(sql_selectAllLivres, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    string titre = reader["Titre"] as string;
+                    int nbr = (reader["Nombre"] as int?).Value;
+                    string auteur = reader["Auteur"] as string;
+                    string ISBN = reader["NumeroISBN"] as string;
+                    GenreDuLivre genre;
+                    Enum.TryParse(reader["Genre"] as string, true, out genre);
+
+                    Livre livre = new Livre(id, titre, nbr, ISBN, auteur, genre);
+                    livres.Add(livre);
+                }
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                livres = null;
+            }
+
+            dbConnection.Close();
+            return livres;
+        }
+
         public bool AjouterLivre(Livre livre)
         {
             bool result = false;
@@ -240,6 +275,43 @@ namespace Projet_Bibliothèque_Livre_CD
                 dbConnection.Open();
 
                 string sql_selectAllCDs = "SELECT * FROM CD";
+                SQLiteCommand command = new SQLiteCommand(sql_selectAllCDs, dbConnection);
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    string titre = reader["Titre"] as string;
+                    int nbr = (reader["Nombre"] as int?).Value;
+                    string artiste = reader["Artiste"] as string;
+                    Style style;
+                    Enum.TryParse(reader["Style"] as string, true, out style);
+
+                    CD CD = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                    CDs.Add(CD);
+                }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                CDs = null;
+            }
+
+            dbConnection.Close();
+
+            return CDs;
+        }
+
+        public IEnumerable<CD> getCDsEmpruntés()
+        {
+            List<CD> CDs = new List<CD>();
+
+            try
+            {
+                dbConnection.Open();
+
+                string sql_selectAllCDs = "SELECT * FROM CD WHERE NbEmprunts >= 1;";
                 SQLiteCommand command = new SQLiteCommand(sql_selectAllCDs, dbConnection);
                 SQLiteDataReader reader = command.ExecuteReader();
 
