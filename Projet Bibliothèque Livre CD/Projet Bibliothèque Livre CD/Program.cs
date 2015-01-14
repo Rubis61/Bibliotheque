@@ -15,7 +15,7 @@ namespace Projet_Bibliothèque_Livre_CD
             // Activer cette ligne que pour générer la BDD, par exemple si modification
             /*/ générerBDD(); //*/
 
-            TESTS();
+            //TESTS();
 
             Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
