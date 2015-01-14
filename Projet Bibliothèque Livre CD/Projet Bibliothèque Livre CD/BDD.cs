@@ -22,16 +22,16 @@ namespace Projet_Bibliothèque_Livre_CD
         #region Livres
         public IEnumerable<Livre> getLivres()
         {
-            dbConnection.Open();
             List<Livre> livres = new List<Livre>();
-
             try
             {
+                dbConnection.Open();
+
                 string sql_selectAllLivres = "SELECT * FROM Livre";
                 SQLiteCommand command = new SQLiteCommand(sql_selectAllLivres, dbConnection);
                 SQLiteDataReader reader = command.ExecuteReader();
 
-                while(reader.Read())
+                while (reader.Read())
                 {
                     int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
                     string titre = reader["Titre"] as string;
@@ -44,7 +44,6 @@ namespace Projet_Bibliothèque_Livre_CD
                     Livre livre = new Livre(id, titre, nbr, ISBN, auteur, genre);
                     livres.Add(livre);
                 }
-
                 reader.Close();
             }
             catch (Exception)
@@ -53,28 +52,26 @@ namespace Projet_Bibliothèque_Livre_CD
             }
 
             dbConnection.Close();
-
             return livres;
         }
 
         public bool AjouterLivre(Livre livre)
         {
-            dbConnection.Open();
-
-            string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(@Titre, @Nombre, @Auteur, @ISBN, @Genre);";
-            SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
-            command.Parameters.AddWithValue("@Titre", livre.Titre);
-            command.Parameters.AddWithValue("@Nombre", livre.NombreEnStock);
-            command.Parameters.AddWithValue("@Auteur", livre.AuteurDuLivre);
-            command.Parameters.AddWithValue("@ISBN", livre.NumeroISBN);
-            command.Parameters.AddWithValue("@Genre", livre.Genre.ToString());
-
             bool result = false;
             try
             {
-                int nbrRowsInserted = command.ExecuteNonQuery();
+                dbConnection.Open();
 
-                result = (nbrRowsInserted>=1);
+                string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(@Titre, @Nombre, @Auteur, @ISBN, @Genre);";
+                SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
+                command.Parameters.AddWithValue("@Titre", livre.Titre);
+                command.Parameters.AddWithValue("@Nombre", livre.NombreEnStock);
+                command.Parameters.AddWithValue("@Auteur", livre.AuteurDuLivre);
+                command.Parameters.AddWithValue("@ISBN", livre.NumeroISBN);
+                command.Parameters.AddWithValue("@Genre", livre.Genre.ToString());
+
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
             }
             catch
             {
@@ -88,15 +85,15 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool EmprunterUnLivre(string titre)
         {
-            dbConnection.Open();
-
-            string updateLivreEmprunter = "UPDATE Livre SET Nombre = @Nombre, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";    
-            SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
-            command.Parameters.AddWithValue("@Nombre", updateLivreEmprunter);
-
             bool result = false;
             try
             {
+                dbConnection.Open();
+
+                string updateLivreEmprunter = "UPDATE Livre SET Nombre = @Nombre, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";
+                SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
+                command.Parameters.AddWithValue("@Nombre", updateLivreEmprunter);
+
                 int nbrRowsInserted = command.ExecuteNonQuery();
                 result = (nbrRowsInserted >= 1);
             }
@@ -112,15 +109,15 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool SupprimerUnLivre(string titre)
         {
-            dbConnection.Open();
-
-            string supprimerLivre = "DELETE FROM Livre WHERE Titre = @Titre";
-            SQLiteCommand command = new SQLiteCommand(supprimerLivre, dbConnection);
-            command.Parameters.AddWithValue("@Titre", titre);
-
             bool result = false;
             try
             {
+                dbConnection.Open();
+
+                string supprimerLivre = "DELETE FROM Livre WHERE Titre = @Titre";
+                SQLiteCommand command = new SQLiteCommand(supprimerLivre, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titre);
+
                 int nbrRowsInserted = command.ExecuteNonQuery();
                 result = (nbrRowsInserted >= 1);
             }
@@ -137,8 +134,6 @@ namespace Projet_Bibliothèque_Livre_CD
         #region CD
         private List<Musique> getMusiquesFromCD(int identifiant)
         {
-            // dbConnection.Open();
-
             List<Musique> musiques = new List<Musique>();
 
             try
@@ -164,8 +159,6 @@ namespace Projet_Bibliothèque_Livre_CD
                 musiques = null;
             }
 
-            //dbConnection.Close();
-
             return musiques;
         }
 
@@ -179,21 +172,21 @@ namespace Projet_Bibliothèque_Livre_CD
                 command.Parameters.AddWithValue("@Numero", musique.Numero);
                 command.Parameters.AddWithValue("@Titre", musique.Titre);
 
-                SQLiteDataReader reader = command.ExecuteReader();
+                command.ExecuteNonQuery();
             }
             catch (Exception)
             {
-
             }
         }
         
         public IEnumerable<CD> getCDs()
         {
-            dbConnection.Open();
             List<CD> CDs = new List<CD>();
 
             try
             {
+                dbConnection.Open();
+
                 string sql_selectAllCDs = "SELECT * FROM CD";
                 SQLiteCommand command = new SQLiteCommand(sql_selectAllCDs, dbConnection);
                 SQLiteDataReader reader = command.ExecuteReader();
@@ -271,6 +264,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                     cd = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
                 }
+                reader.Close();
             }
             catch (Exception)
             {
@@ -278,29 +272,28 @@ namespace Projet_Bibliothèque_Livre_CD
             }
 
             dbConnection.Close();
-
             return cd;
         }
         
         public bool ajouterCD(CD CD)
         {
-            dbConnection.Open();
-
-            string sqlInsert_CD = "INSERT INTO CD(Titre, Nombre, Artiste, Style) VALUES(@Titre, @Nombre, @Artiste, @Style);";
-            SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
-            command.Parameters.AddWithValue("@Titre", CD.Titre);
-            command.Parameters.AddWithValue("@Nombre", CD.NombreEnStock);
-            command.Parameters.AddWithValue("@Artiste", CD.Artiste);
-            command.Parameters.AddWithValue("@Style", CD.Style.ToString());
-
             bool result = false;
             try
             {
+                dbConnection.Open();
+
+                string sqlInsert_CD = "INSERT INTO CD(Titre, Nombre, Artiste, Style) VALUES(@Titre, @Nombre, @Artiste, @Style);";
+                SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
+                command.Parameters.AddWithValue("@Titre", CD.Titre);
+                command.Parameters.AddWithValue("@Nombre", CD.NombreEnStock);
+                command.Parameters.AddWithValue("@Artiste", CD.Artiste);
+                command.Parameters.AddWithValue("@Style", CD.Style.ToString());
+
                 int nbrRowsInserted = command.ExecuteNonQuery();
 
                 result = (nbrRowsInserted >= 1);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 result = false;
             }
@@ -311,7 +304,6 @@ namespace Projet_Bibliothèque_Livre_CD
             }
 
             dbConnection.Close();
-
             return result;
         }
 
@@ -340,15 +332,15 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool SupprimerUnCD(string titre)
         {
-            dbConnection.Open();
-
-            string supprimerCD = "DELETE FROM CD WHERE Titre = @Titre";
-            SQLiteCommand command = new SQLiteCommand(supprimerCD, dbConnection);
-            command.Parameters.AddWithValue("@Titre", titre);
-
             bool result = false;
             try
             {
+                dbConnection.Open();
+
+                string supprimerCD = "DELETE FROM CD WHERE Titre = @Titre";
+                SQLiteCommand command = new SQLiteCommand(supprimerCD, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titre);
+
                 int nbrRowsInserted = command.ExecuteNonQuery();
                 result = (nbrRowsInserted >= 1);
             }
