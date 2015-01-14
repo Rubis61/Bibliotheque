@@ -389,7 +389,8 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
-                    erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
+                    if (IsLocal) erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
+                    else erreur = bdd.EmprunterUnCD(saisieUtilisateur);
 
                     if (erreur == false)
                     {
@@ -430,7 +431,10 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
-                cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+
+                if (IsLocal) cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+                else cdRamené = bdd.ramenerUnCd(saisieUtilisateur);
+
                 if (cdRamené == false)
                 {
                     Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
@@ -446,6 +450,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void SupprimerUnCD()
         {
+            bool result = false;
             do
             {
                 Console.WriteLine("Quel est le titre du CD que vous voulez enlever de la bibliothèque ?");
@@ -456,11 +461,14 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
+                
+                if (IsLocal) result = bibliotheque.SupprimerUnCD(saisieUtilisateur);
+                else result = bdd.SupprimerUnCD(saisieUtilisateur);
 
-                if (bibliotheque.SupprimerUnCD(saisieUtilisateur) == true)
+                if (result)
                 {
                     bibliotheque.SupprimerUnCD(saisieUtilisateur);
-                    Console.WriteLine("Le CD a bien était supprimé");
+                    Console.WriteLine("Le CD a bien été supprimé");
                     Console.WriteLine();
                     log.WriteMessage(DateTime.Now.ToString() + " : " + "Suppresion du CD " + saisieUtilisateur);
                     AppuyerSurUneTouchePourContinuer();
@@ -471,7 +479,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine("Le CD n'existe pas.");
                 }
             }
-            while (bibliotheque.SupprimerUnCD(saisieUtilisateur) == false);
+            while (result == false);
         }
 
         public GenreDuLivre AfficherEtSaisirGenreDuLivre()
