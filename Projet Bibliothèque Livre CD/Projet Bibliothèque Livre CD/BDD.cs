@@ -92,6 +92,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 string updateLivreEmprunter = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";
                 SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titre);
 
                 int nbrRowsInserted = command.ExecuteNonQuery();
                 result = (nbrRowsInserted >= 1);
@@ -134,7 +135,7 @@ namespace Projet_Bibliothèque_Livre_CD
             try
             {              
                 dbConnection.Open();
-                string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE Livre.Titre =  @Titre";
+                string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre + 1, NbEmprunts = NbEmprunts - 1 WHERE Livre.Titre =  @Titre";
                 command = new SQLiteCommand(sql_UpdateNombreLivre, dbConnection);
                 command.Parameters.AddWithValue("@Titre", livre);
                 command.ExecuteNonQuery();
