@@ -319,8 +319,9 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                cd = bibliotheque.rechercherCD(saisieUtilisateur);
-
+                if (IsLocal) cd = bibliotheque.rechercherCD(saisieUtilisateur);
+                else cd = bdd.rechercherCD(saisieUtilisateur);
+                
                 Console.WriteLine();
 
                 if (cd == null)
@@ -518,7 +519,12 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est le nom du fichier de log?");
             Console.WriteLine("Exemple : monfichierlog.txt");
             string name = Console.ReadLine();
-            pathOfLog = path + @"\" + name;
+            if( path == "" )
+            {
+                pathOfLog = name;
+            }
+            else pathOfLog = path + @"\" + name;
+
             return pathOfLog;
         }
         public void ChoixLocalOuBDD()
