@@ -170,11 +170,11 @@ namespace Projet_Bibliothèque_Livre_CD
             try
             {              
                 dbConnection.Open();
-                string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre + 1, NbEmprunts = NbEmprunts - 1 WHERE Livre.Titre =  @Titre";
+                string sql_UpdateNombreLivre = "UPDATE Livre SET Nombre = Nombre + 1, NbEmprunts = NbEmprunts - 1 WHERE Titre = @Titre AND NbEmprunts >= 1";
                 command = new SQLiteCommand(sql_UpdateNombreLivre, dbConnection);
                 command.Parameters.AddWithValue("@Titre", livre);
-                command.ExecuteNonQuery();
-                result = true;
+                int numberRowUpdated = command.ExecuteNonQuery();
+                result = (numberRowUpdated >= 1);
             }
             catch (Exception)
             {
