@@ -174,7 +174,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
             while (erreur == false);
 
-            Console.WriteLine("Le CD " + saisieUtilisateur + " a bien été emprunté");
+            Console.WriteLine("Le livre " + saisieUtilisateur + " a bien été emprunté");
 
             Console.WriteLine();
 
@@ -190,6 +190,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             do // Gestion de la saisie utilisateur
             {
+                Console.Clear();
                 Console.WriteLine("Quel est le titre du livre que vous voulez rapporter ?");
                 Console.WriteLine("Sinon tapez 'retour' pour annuler");
                 saisieUtilisateur = Console.ReadLine().ToString();
@@ -205,10 +206,11 @@ namespace Projet_Bibliothèque_Livre_CD
                         Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
                         Console.WriteLine();
                     }
-                    else Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
+                    else  Console.WriteLine("Le livre \"" + saisieUtilisateur + "\" a bien été rapporté");
                 }
                 else
                 {
+                    bdd.rechercherCD(saisieUtilisateur);
                     livreRamené = bdd.RamenerUnLivre(saisieUtilisateur);
                     if (livreRamené == false)
                     {
