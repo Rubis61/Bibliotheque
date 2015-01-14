@@ -452,14 +452,20 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public string EmplacementFichierLog()
         {
-            Console.WriteLine("Où voulez vous placer le fichier de log de l'application?");
+            Console.WriteLine("Ou voulez vous placer le fichier de log de l'application?");
             Console.WriteLine(@"Exemple : C:\Users\(Username)\Desktop");
+            Console.WriteLine(" Touche 'Entrer' pour le répertoire en cours !");
             string path = Console.ReadLine();
             Console.Clear();
             Console.WriteLine("Quel est le nom du fichier de log?");
             Console.WriteLine("Exemple : monfichierlog.txt");
             string name = Console.ReadLine();
-            pathOfLog = path + @"\" + name;
+            if(path == "")
+            {
+                pathOfLog = name;
+            }
+            else pathOfLog = path + @"\" + name;
+
             return pathOfLog;
         }
         public void ChoixLocalOuBDD()
@@ -467,7 +473,7 @@ namespace Projet_Bibliothèque_Livre_CD
             do
             {
                 Console.Clear();
-                Console.WriteLine("Voulez vous travailler en local où en BDD?");
+                Console.WriteLine("Voulez-vous travailler en local ou en BDD?");
                 Console.WriteLine("Tapez 'Local' ou 'BDD' pour choisir sur quel support travailler");
                 saisieUtilisateur = Console.ReadLine().ToString().ToUpper();
             } while (saisieUtilisateur != "LOCAL" && saisieUtilisateur != "BDD");

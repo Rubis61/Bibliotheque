@@ -22,7 +22,6 @@ namespace Projet_Bibliothèque_Livre_CD
                     Console.WriteLine(livre.livreEmprunté.ToString());
                 */
             Application.menu.bibliotheque.cdEmprunté += bibliotheque_CDEmprunté;
-            
 
             DémarrerApplication();
 
