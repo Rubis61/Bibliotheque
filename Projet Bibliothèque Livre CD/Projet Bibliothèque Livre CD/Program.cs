@@ -15,7 +15,7 @@ namespace Projet_Bibliothèque_Livre_CD
             // Activer cette ligne que pour générer la BDD, par exemple si modification
             /*/ générerBDD(); //*/
 
-            //TESTS();
+            TESTS();
 
             Application.menu.bibliotheque.livreEmprunté += bibliotheque_LivreEmprunté;
                 /*(sender, livre) => 
@@ -137,11 +137,18 @@ namespace Projet_Bibliothèque_Livre_CD
             List<Livre> livres = bdd.getLivres().ToList();
             livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()*/
             List<CD> cds = bdd.getCDs().ToList();
-
             foreach (var cd in cds)
             {
                 Console.WriteLine(cd.Titre);
             }
+
+            List<Musique> musiques = new List<Musique>()
+            {
+                new Musique("Mus1", 0),
+                new Musique("Mus2", 1)
+            };
+            CD cdTest = new CD(0, "Essai", 1, "Moi", Style.Metal, musiques);
+            bdd.ajouterCD(cdTest);
         }
 
         private static void générerBDD()
@@ -166,8 +173,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 Titre   NVARCHAR (50) NULL,
                 Nombre  INT           DEFAULT ((1)) NULL,
                 Artiste NVARCHAR (50) NULL,
-                Style   NVARCHAR (50) NULL,
-                PRIMARY KEY (Id ASC) );";
+                Style   NVARCHAR (50) NULL );";
             string sqlCreateTable_Musique = // Création Table Musique
               @"CREATE TABLE Musique (
                 Id    INTEGER       PRIMARY KEY AUTOINCREMENT,
@@ -180,16 +186,16 @@ namespace Projet_Bibliothèque_Livre_CD
             /*/command.ExecuteNonQuery(); //*/
 
             command = new SQLiteCommand(sqlCreateTable_CD, dbConnection);
-            /*/command.ExecuteNonQuery(); //*/
+            /**/command.ExecuteNonQuery(); //*/
 
-            command = new SQLiteCommand(sqlCreateTable_Musique, dbConnection);
+           // command = new SQLiteCommand(sqlCreateTable_Musique, dbConnection);
             /*/command.ExecuteNonQuery(); //*/
-
+            /*
             // Insertion de 3 livres : Bible par DIEU de genre Religieux
             string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES('Bible', 3, 'Dieu', '123-456-789', 'Religieux');";
-            command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
+            command = new SQLiteCommand(sqlInsert_Livre, dbConnection);*/
             /*/ command.ExecuteNonQuery(); //*/
-
+            /*
             string sqlSelect_Livre = @"SELECT * FROM Livre WHERE Titre='Bible';";
             command = new SQLiteCommand(sqlSelect_Livre, dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
@@ -197,7 +203,7 @@ namespace Projet_Bibliothèque_Livre_CD
             while(reader.Read())
             {
                 Console.WriteLine(reader["Id"] + " " + reader["Titre"] + " " + reader["Auteur"] + " " + reader["NumeroISBN"] + " " + reader["Genre"]);
-            }
+            }*/
         }
     }
 }

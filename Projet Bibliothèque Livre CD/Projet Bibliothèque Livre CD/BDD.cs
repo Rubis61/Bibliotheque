@@ -191,7 +191,6 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return CDs;
         }
-
         
         public bool ajouterCD(CD CD)
         {
