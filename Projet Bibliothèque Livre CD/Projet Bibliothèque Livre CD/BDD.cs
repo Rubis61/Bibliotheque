@@ -63,11 +63,11 @@ namespace Projet_Bibliothèque_Livre_CD
 
             string sqlInsert_Livre = "INSERT INTO Livre(Titre, Nombre, Auteur, NumeroISBN, Genre) VALUES(@Titre, @Nombre, @Auteur, @ISBN, @Genre);";
             SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@Titre", livre.Titre));
-            command.Parameters.Add(new SQLiteParameter("@Nombre", livre.NombreEnStock));
-            command.Parameters.Add(new SQLiteParameter("@Auteur", livre.AuteurDuLivre));
-            command.Parameters.Add(new SQLiteParameter("@ISBN", livre.NumeroISBN));
-            command.Parameters.Add(new SQLiteParameter("@Genre", livre.Genre.ToString()));
+            command.Parameters.AddWithValue("@Titre", livre.Titre);
+            command.Parameters.AddWithValue("@Nombre", livre.NombreEnStock);
+            command.Parameters.AddWithValue("@Auteur", livre.AuteurDuLivre);
+            command.Parameters.AddWithValue("@ISBN", livre.NumeroISBN);
+            command.Parameters.AddWithValue("@Genre", livre.Genre.ToString());
 
             bool result = false;
             try
@@ -191,6 +191,62 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return CDs;
         }
+
+        public void ramenerUnCd(CD cd)
+        {
+            try
+            {
+                dbConnection.Open();
+
+                string sql_UpdateNombreCd = "UPDATE CD SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE CD.Titre =  @Titre";
+                command = new SQLiteCommand(sql_UpdateNombreCd, dbConnection);
+                command.Parameters.AddWithValue("@Titre", cd.Titre);
+
+                command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+            }
+
+            dbConnection.Close();
+        }
+
+        public CD rechercherCD(string titreCD)
+        {
+            CD cd = null;
+
+            try
+            {
+                dbConnection.Open();
+
+                string sql_SelectCD = "SELECT * FROM CD WHERE CD.Titre = @Titre";
+                command = new SQLiteCommand(sql_SelectCD, dbConnection);
+                command.Parameters.AddWithValue("@Titre", titreCD);
+
+                SQLiteDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string titre = reader["Titre"] as string;
+                    int nbr = (reader["Nombre"] as int?).Value;
+                    string artiste = reader["Artiste"] as string;
+                    Style style;
+                    Enum.TryParse(reader["Style"] as string, true, out style);
+
+                    cd = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                }
+            }
+            catch (Exception)
+            {
+                cd = null;
+            }
+
+            dbConnection.Close();
+
+            return cd;
+        }
         
         public bool ajouterCD(CD CD)
         {
@@ -198,10 +254,10 @@ namespace Projet_Bibliothèque_Livre_CD
 
             string sqlInsert_CD = "INSERT INTO CD(Titre, Nombre, Artiste, Style) VALUES(@Titre, @Nombre, @Artiste, @Style);";
             SQLiteCommand command = new SQLiteCommand(sqlInsert_CD, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@Titre", CD.Titre));
-            command.Parameters.Add(new SQLiteParameter("@Nombre", CD.NombreEnStock));
-            command.Parameters.Add(new SQLiteParameter("@Artiste", CD.Artiste));
-            command.Parameters.Add(new SQLiteParameter("@Style", CD.Style.ToString()));
+            command.Parameters.AddWithValue("@Titre", CD.Titre);
+            command.Parameters.AddWithValue("@Nombre", CD.NombreEnStock);
+            command.Parameters.AddWithValue("@Artiste", CD.Artiste);
+            command.Parameters.AddWithValue("@Style", CD.Style.ToString());
 
             bool result = false;
             try
