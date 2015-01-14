@@ -136,6 +136,7 @@ namespace Projet_Bibliothèque_Livre_CD
             bool erreur;
             do
             {
+                Console.Clear();
                 Console.WriteLine("Vous voulez emprunter un livre.");
                 Console.WriteLine();
                 Console.WriteLine("Quel est le titre du livre que vous voulez emprunter ?");
@@ -180,7 +181,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public void RamenerUnLivre()
         {
-            bool livreRamené = false;
+            bool livreRamené;
             Console.WriteLine("Vous voulez ramener un livre.");
             Console.WriteLine();
 
