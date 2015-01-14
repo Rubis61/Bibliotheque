@@ -22,11 +22,6 @@ namespace Projet_Bibliothèque_Livre_CD
             AuteurDuLivre = auteurDuLivre;
             Genre = genre;
         }
-
-        /// <summary>
-        /// Constructeur de copie
-        /// </summary>
-        /// <param name="livre"></param>
         public Livre(Livre livre)
             : base(livre.IdentifiantUnique, livre.Titre, livre.NombreEnStock)
         {
@@ -41,7 +36,7 @@ namespace Projet_Bibliothèque_Livre_CD
                    ", Genre : " + Genre.ToString();
         }
 
-        public static string[] getGenresDisponibles()
+        public static string[] GetGenresDisponibles()
         {
             return Enum.GetNames(typeof(GenreDuLivre));
         }

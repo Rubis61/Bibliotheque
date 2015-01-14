@@ -27,11 +27,6 @@ namespace Projet_Bibliothèque_Livre_CD
             Style = style;
             Musiques = musiques;
         }
-
-        /// <summary>
-        /// Constructeur de copie
-        /// </summary>
-        /// <param name="cd"></param>
         public CD(CD cd)
             : base(cd.IdentifiantUnique, cd.Titre, cd.NombreEnStock)
         {
@@ -46,12 +41,12 @@ namespace Projet_Bibliothèque_Livre_CD
                    ", Style : " + Style.ToString();
         }
 
-        public static string[] getStylesDisponibles()
+        public static string[] GetStylesDisponibles()
         {
             return Enum.GetNames(typeof(Style));
         }
         
-        public static List<Musique> remplirListeDeMusique()
+        public static List<Musique> RemplirListeDeMusique()
         {
             bool result;
             string valeur;

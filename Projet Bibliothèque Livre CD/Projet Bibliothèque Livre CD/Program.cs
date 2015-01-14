@@ -36,7 +36,7 @@ namespace Projet_Bibliothèque_Livre_CD
             menu.ChoixLocalOuBDD();
 
             //*/ Ajoute ou enleve un '/' au début de cette ligne pour switch entre le code de test et le code final
-            Application.générerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà sera fait par la base de données
+            Application.GénérerDonnées(); // Rempli les données de la bibliothèque pour les tests, plus tard celà sera fait par la base de données
             
             while (Application.RunApplication()) ;
 
@@ -137,7 +137,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             List<Livre> livres = bdd.getLivres().ToList();
             livres.ForEach((livre) => Console.WriteLine(livre.ToString())); // Test méthode BDD: GetLivres()*/
-            List<CD> cds = bdd.getCDs().ToList();
+            List<CD> cds = bdd.GetCDs().ToList();
             foreach (var cd in cds)
             {
                 Console.WriteLine(cd.Titre);
@@ -149,7 +149,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 new Musique("Mus2", 1)
             };
             CD cdTest = new CD(0, "Essai", 1, "Moi", Style.Metal, musiques);
-            bdd.ajouterCD(cdTest);
+            bdd.AjouterCD(cdTest);
         }
 
         private static void générerBDD()

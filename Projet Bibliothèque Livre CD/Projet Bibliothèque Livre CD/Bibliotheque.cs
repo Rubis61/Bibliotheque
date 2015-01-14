@@ -45,7 +45,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Emprunts = emprunts;
         }
 
-        public void ajouterCD(string titre, int nombre, string artiste, Style style, List<Musique> musiques)
+        public void AjouterCD(string titre, int nombre, string artiste, Style style, List<Musique> musiques)
         {
             int idNouveauCd = ListCD.Count;
             CD nouveauCD = new CD(idNouveauCd, titre, nombre, artiste, style, musiques);
@@ -60,7 +60,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        private void ajouterCD(CD cdAajouter)
+        private void AjouterCD(CD cdAajouter)
         {
             if (ListCD.Where(cd => cd.Titre == cdAajouter.Titre).Count() >= 1)
             {
@@ -74,15 +74,15 @@ namespace Projet_Bibliothèque_Livre_CD
 
         public bool SupprimerUnCD(string titre)
         {
-            return ListCD.Remove(rechercherCD(titre));
+            return ListCD.Remove(RechercherCD(titre));
         }
         public bool SupprimerUnLivre(string titre)
         {
-            return ListLivres.Remove(rechercherLivre(titre));
+            return ListLivres.Remove(RechercherLivre(titre));
    
         }
 
-        public void ajouterLivre(string titre, int nombre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
+        public void AjouterLivre(string titre, int nombre, string numeroISBN, string auteurDuLivre, GenreDuLivre genre)
         {
             int idNouveauLivre = ListLivres.Count;
             Livre nouveauLivre = new Livre(idNouveauLivre, titre, nombre, numeroISBN, auteurDuLivre, genre);
@@ -98,7 +98,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        private void ajouterLivre(Livre livreAajouter)
+        private void AjouterLivre(Livre livreAajouter)
         {
             if (ListLivres.Where(livre => livre.Titre == livreAajouter.Titre).Count() >= 1)
             {
@@ -110,7 +110,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public CD rechercherCD(string titre)
+        public CD RechercherCD(string titre)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public Livre rechercherLivre(string titre)
+        public Livre RechercherLivre(string titre)
         {
             try
             {
@@ -142,16 +142,16 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public string emprunterCD(string titre)
+        public string EmprunterCD(string titre)
         {
-            CD cdAEmprunter = rechercherCD(titre);
+            CD cdAEmprunter = RechercherCD(titre);
 
             if (cdAEmprunter == null) return "null"; // Le CD n'a pas été trouvé
 
             if (cdAEmprunter.NombreEnStock >= 1)
             { // Si au moins un CD de disponible
                 cdAEmprunter.NombreEnStock--; // Prise du CD en stock
-                Emprunts.ajouterCD(cdAEmprunter); // Emprunt du CD
+                Emprunts.AjouterCD(cdAEmprunter); // Emprunt du CD
 
                 OnCDEmprunté(new EmpruntCDEventArgs(cdAEmprunter));
                 return "true";
@@ -162,9 +162,9 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public string emprunterLivre(string titre)
+        public string EmprunterLivre(string titre)
         {
-            Livre livreAEmprunter = rechercherLivre(titre);
+            Livre livreAEmprunter = RechercherLivre(titre);
 
             if (livreAEmprunter == null) return "null"; // Le Livre n'a pas été trouvé
 
@@ -173,7 +173,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 //Livre livreTrouvé = ListLivres.Single(livre => livre.Titre == livreAEmprunter.Titre);
 
                 livreAEmprunter.NombreEnStock--; // Prise du Livre en stock
-                Emprunts.ajouterLivre(livreAEmprunter); // Emprunt du Livre
+                Emprunts.AjouterLivre(livreAEmprunter); // Emprunt du Livre
 
                 OnLivreEmprunté(new EmpruntLivreEventArgs(livreAEmprunter));
                 return "true";
@@ -184,25 +184,25 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public bool restituerCD(string titre)
+        public bool RestituerCD(string titre)
         {
             CD cdARestituer = Emprunts.CDEmpruntés.Find(cd => cd.Titre == titre); // Recherche du CD dans la liste des emprunts
 
             if (cdARestituer == null) return false;
 
-            ajouterCD(cdARestituer);
+            AjouterCD(cdARestituer);
             Emprunts.CDEmpruntés.Remove(cdARestituer);
 
             return true;
         }
 
-        public bool restituerLivre(string titre)
+        public bool RestituerLivre(string titre)
         {
             Livre livreARestituer = Emprunts.LivresEmpruntés.Find(livre => livre.Titre == titre); // Recherche du Livre dans la liste des emprunts
 
             if (livreARestituer == null) return false;
 
-            ajouterLivre(livreARestituer);
+            AjouterLivre(livreARestituer);
             Emprunts.LivresEmpruntés.Remove(livreARestituer);
 
             return true;

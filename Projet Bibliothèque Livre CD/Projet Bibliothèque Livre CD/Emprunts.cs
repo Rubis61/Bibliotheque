@@ -17,7 +17,7 @@ namespace Projet_Bibliothèque_Livre_CD
             CDEmpruntés = new List<CD>();
         }
 
-        public void ajouterLivre(Livre livreAajouter)
+        public void AjouterLivre(Livre livreAajouter)
         {
             Livre nouveauLivre = new Livre(livreAajouter);
             nouveauLivre.NombreEnStock = 1;
@@ -32,7 +32,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public void ajouterCD(CD cdAajouter)
+        public void AjouterCD(CD cdAajouter)
         {
             CD nouveauCD = new CD(cdAajouter);
             nouveauCD.NombreEnStock = 1;
@@ -47,12 +47,12 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
 
-        public void enleverCD(CD cd)
+        public void EnleverCD(CD cd)
         {
             CDEmpruntés.Remove(cd);
         }
 
-        public void enleverLivre(Livre livre)
+        public void EnleverLivre(Livre livre)
         {
             LivresEmpruntés.Remove(livre);
         }

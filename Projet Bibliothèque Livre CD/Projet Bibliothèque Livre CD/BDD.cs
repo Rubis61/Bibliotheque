@@ -20,7 +20,7 @@ namespace Projet_Bibliothèque_Livre_CD
         { }
 
         #region Livres
-        public IEnumerable<Livre> getLivres()
+        public IEnumerable<Livre> GetLivres()
         {
             List<Livre> livres = new List<Livre>();
             try
@@ -33,14 +33,13 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    int id = reader.GetInt32(0);
                     string titre = reader["Titre"] as string;
                     int nbr = (reader["Nombre"] as int?).Value;
                     string auteur = reader["Auteur"] as string;
                     string ISBN = reader["NumeroISBN"] as string;
                     GenreDuLivre genre;
                     Enum.TryParse(reader["Genre"] as string, true, out genre);
-
                     Livre livre = new Livre(id, titre, nbr, ISBN, auteur, genre);
                     livres.Add(livre);
                 }
@@ -50,12 +49,11 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 livres = null;
             }
-
             dbConnection.Close();
             return livres;
         }
 
-        public IEnumerable<Livre> getLivresEmpruntés()
+        public IEnumerable<Livre> GetLivresEmpruntés()
         {
             List<Livre> livres = new List<Livre>();
             try
@@ -68,7 +66,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    int id = reader.GetInt32(0);
                     string titre = reader["Titre"] as string;
                     int nbr = (reader["NbEmprunts"] as int?).Value;
                     string auteur = reader["Auteur"] as string;
@@ -125,7 +123,7 @@ namespace Projet_Bibliothèque_Livre_CD
             {
                 dbConnection.Open();
 
-                string updateLivreEmprunter = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";
+                string updateLivreEmprunter = "UPDATE Livre SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre AND NbEmprunts >= 1";
                 SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
                 command.Parameters.AddWithValue("@Titre", titre);
 
@@ -222,7 +220,7 @@ namespace Projet_Bibliothèque_Livre_CD
         #endregion
 
         #region CD
-        private List<Musique> getMusiquesFromCD(int identifiant)
+        private List<Musique> GetMusiquesFromCD(int identifiant)
         {
             List<Musique> musiques = new List<Musique>();
 
@@ -234,7 +232,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32(0);//.HasValue ? reader.GetInt32(0).Value : -1;
+                    int id = reader.GetInt32(0);
                     string titre = reader["Titre"] as string;
                     int numero = reader.GetInt32(2);
 
@@ -252,7 +250,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return musiques;
         }
 
-        private void ajouterMusique(Musique musique, int idCD)
+        private void AjouterMusique(Musique musique, int idCD)
         {
             try
             {
@@ -269,7 +267,7 @@ namespace Projet_Bibliothèque_Livre_CD
             }
         }
         
-        public IEnumerable<CD> getCDs()
+        public IEnumerable<CD> GetCDs()
         {
             List<CD> CDs = new List<CD>();
 
@@ -290,7 +288,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Style style;
                     Enum.TryParse(reader["Style"] as string, true, out style);
 
-                    CD CD = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                    CD CD = new CD(id, titre, nbr, artiste, style, GetMusiquesFromCD(id));
                     CDs.Add(CD);
                 }
 
@@ -306,7 +304,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return CDs;
         }
 
-        public IEnumerable<CD> getCDsEmpruntés()
+        public IEnumerable<CD> GetCDsEmpruntés()
         {
             List<CD> CDs = new List<CD>();
 
@@ -327,7 +325,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Style style;
                     Enum.TryParse(reader["Style"] as string, true, out style);
 
-                    CD CD = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                    CD CD = new CD(id, titre, nbr, artiste, style, GetMusiquesFromCD(id));
                     CDs.Add(CD);
                 }
 
@@ -343,7 +341,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return CDs;
         }
 
-        public bool ramenerUnCd(string titre)
+        public bool RamenerUnCd(string titre)
         {
             bool result = false;
             try
@@ -366,7 +364,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return result;
         }
 
-        public CD rechercherCD(string titreCD)
+        public CD RechercherCD(string titreCD)
         {
             CD cd = null;
 
@@ -389,7 +387,7 @@ namespace Projet_Bibliothèque_Livre_CD
                     Style style;
                     Enum.TryParse(reader["Style"] as string, true, out style);
 
-                    cd = new CD(id, titre, nbr, artiste, style, getMusiquesFromCD(id));
+                    cd = new CD(id, titre, nbr, artiste, style, GetMusiquesFromCD(id));
                 }
                 reader.Close();
             }
@@ -402,7 +400,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return cd;
         }
         
-        public bool ajouterCD(CD CD)
+        public bool AjouterCD(CD CD)
         {
             bool result = false;
             try
@@ -427,7 +425,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             foreach (var musique in CD.Musiques)
             {
-                ajouterMusique(musique, CD.IdentifiantUnique);
+                AjouterMusique(musique, CD.IdentifiantUnique);
             }
 
             dbConnection.Close();

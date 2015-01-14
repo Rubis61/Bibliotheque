@@ -54,10 +54,10 @@ namespace Projet_Bibliothèque_Livre_CD
             }
             else
             {
-                listLivres = bdd.getLivres().ToList();
-                listCD = bdd.getCDs().ToList();
-                listLivresEmpruntés = bdd.getLivresEmpruntés().ToList();
-                listCDsEmpruntés = bdd.getCDsEmpruntés().ToList();
+                listLivres = bdd.GetLivres().ToList();
+                listCD = bdd.GetCDs().ToList();
+                listLivresEmpruntés = bdd.GetLivresEmpruntés().ToList();
+                listCDsEmpruntés = bdd.GetCDsEmpruntés().ToList();
             }
 
             Console.WriteLine("/////////////////////////////////////////////////////////////////////////");
@@ -116,7 +116,7 @@ namespace Projet_Bibliothèque_Livre_CD
             GenreDuLivre genre = AfficherEtSaisirGenreDuLivre();
             if (IsLocal)
             {
-                bibliotheque.ajouterLivre(titre, nombre, ISBN, auteur, genre);
+                bibliotheque.AjouterLivre(titre, nombre, ISBN, auteur, genre);
             }
             else
             {
@@ -149,7 +149,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     if (IsLocal)
                     {
-                        erreur = Boolean.Parse(bibliotheque.emprunterLivre(saisieUtilisateur));
+                        erreur = Boolean.Parse(bibliotheque.EmprunterLivre(saisieUtilisateur));
                     }
                     else
                     {
@@ -200,7 +200,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
                 if (IsLocal)
                 {
-                    livreRamené = bibliotheque.restituerLivre(saisieUtilisateur);
+                    livreRamené = bibliotheque.RestituerLivre(saisieUtilisateur);
                     if (livreRamené == false)
                     {
                         Console.WriteLine("ERREUR : Le livre n'a pas été trouvé ! Veuillez recommencer !");
@@ -210,7 +210,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 }
                 else
                 {
-                    bdd.rechercherCD(saisieUtilisateur);
+                    bdd.RechercherCD(saisieUtilisateur);
                     livreRamené = bdd.RamenerUnLivre(saisieUtilisateur);
                     if (livreRamené == false)
                     {
@@ -247,7 +247,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 if (IsLocal)
                 {
-                    livre = bibliotheque.rechercherLivre(saisieUtilisateur);
+                    livre = bibliotheque.RechercherLivre(saisieUtilisateur);
                 }
                 else
                 {
@@ -325,8 +325,8 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                if (IsLocal) cd = bibliotheque.rechercherCD(saisieUtilisateur);
-                else cd = bdd.rechercherCD(saisieUtilisateur);
+                if (IsLocal) cd = bibliotheque.RechercherCD(saisieUtilisateur);
+                else cd = bdd.RechercherCD(saisieUtilisateur);
                 
                 Console.WriteLine();
 
@@ -363,12 +363,12 @@ namespace Projet_Bibliothèque_Livre_CD
             int nombre = 0;
             while (nombre == 0 ) int.TryParse(Console.ReadLine(), out nombre);
 
-            List<Musique> listMusiques = CD.remplirListeDeMusique();
+            List<Musique> listMusiques = CD.RemplirListeDeMusique();
 
             Style style = AfficherEtSaisirStyleDuCD();
 
-            if (IsLocal) bibliotheque.ajouterCD(titre, nombre, artiste, style, listMusiques);
-            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
+            if (IsLocal) bibliotheque.AjouterCD(titre, nombre, artiste, style, listMusiques);
+            else bdd.AjouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
@@ -395,7 +395,7 @@ namespace Projet_Bibliothèque_Livre_CD
                 saisieUtilisateur = Console.ReadLine().ToString();
                 try
                 {
-                    if (IsLocal) erreur = Boolean.Parse(bibliotheque.emprunterCD(saisieUtilisateur));
+                    if (IsLocal) erreur = Boolean.Parse(bibliotheque.EmprunterCD(saisieUtilisateur));
                     else erreur = bdd.EmprunterUnCD(saisieUtilisateur);
 
                     if (erreur == false)
@@ -438,8 +438,8 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                if (IsLocal) cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
-                else cdRamené = bdd.ramenerUnCd(saisieUtilisateur);
+                if (IsLocal) cdRamené = bibliotheque.RestituerCD(saisieUtilisateur);
+                else cdRamené = bdd.RamenerUnCd(saisieUtilisateur);
 
                 if (cdRamené == false)
                 {
@@ -493,7 +493,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             Console.WriteLine("Quel est le genre du livre?");
 
-            string[] genreDisponible = Livre.getGenresDisponibles();
+            string[] genreDisponible = Livre.GetGenresDisponibles();
 
             do
             {
@@ -511,7 +511,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public Style AfficherEtSaisirStyleDuCD()
         {
             Console.WriteLine("Quel est le genre de l'album?");
-            string[] styleDisponible = CD.getStylesDisponibles();
+            string[] styleDisponible = CD.GetStylesDisponibles();
             do
             {
                 

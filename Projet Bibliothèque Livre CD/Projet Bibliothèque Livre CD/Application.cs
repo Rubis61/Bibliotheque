@@ -17,7 +17,7 @@ namespace Projet_Bibliothèque_Livre_CD
             do
             {
                 menu.AfficherMenu();
-                choixUtilisateur = Console.ReadLine();//ReadKey().KeyChar.ToString();       
+                choixUtilisateur = Console.ReadLine();
             }
             while (choixUtilisateur != "1" && choixUtilisateur != "2" && choixUtilisateur != "3" && choixUtilisateur != "4" && choixUtilisateur != "5" && choixUtilisateur != "6" && choixUtilisateur != "7" &&
                    choixUtilisateur != "8" && choixUtilisateur != "9" && choixUtilisateur != "10" && choixUtilisateur != "11" && choixUtilisateur != "0");
@@ -40,9 +40,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 case "0": return false;
             }
-
             return true;
-            //return VoulezVousContinuez();
         }
 
         public static bool VoulezVousContinuez()
@@ -62,14 +60,14 @@ namespace Projet_Bibliothèque_Livre_CD
             else return true;
         }
         
-        public static void générerDonnées()
+        public static void GénérerDonnées()
         {
-            menu.bibliotheque.ajouterLivre("Bible", 3, "123", "Dieu", GenreDuLivre.Religieux);
+            menu.bibliotheque.AjouterLivre("Bible", 3, "123", "Dieu", GenreDuLivre.Religieux);
 
-            menu.bibliotheque.ajouterCD("7eme symphonie", 3, "Mozart", Style.Classique, new List<Musique>());
+            menu.bibliotheque.AjouterCD("7eme symphonie", 3, "Mozart", Style.Classique, new List<Musique>());
 
-            menu.bibliotheque.emprunterCD("7eme symphonie");
-            menu.bibliotheque.emprunterLivre("Bible");
+            menu.bibliotheque.EmprunterCD("7eme symphonie");
+            menu.bibliotheque.EmprunterLivre("Bible");
         }
     }
 }
