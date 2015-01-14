@@ -9,6 +9,7 @@ namespace Projet_Bibliothèque_Livre_CD
     public class Menu
     {
         public Bibliotheque bibliotheque = new Bibliotheque();
+        public BDD bdd = new BDD();
         public LogApplication log = new LogApplication();
         public string saisieUtilisateur { get; set; }
         public static string pathOfLog { get; set; }
@@ -88,6 +89,7 @@ namespace Projet_Bibliothèque_Livre_CD
             string ISBN = Console.ReadLine();
 
             bibliotheque.ajouterLivre(titre, ISBN, auteur, AfficherEtSaisirGenreDuLivre());
+
             Console.WriteLine();
             Console.WriteLine("Le livre \"" + titre + "\" de l'auteur \"" + auteur + "\" a bien été ajouté avec ");
             Console.WriteLine("comme genre " + saisieUtilisateur.ToUpper() + " et comme numéro ISBN \"" + ISBN + "\"");
@@ -98,6 +100,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             AppuyerSurUneTouchePourContinuer();
         }
+
         public void EmprunterUnLivre()
         {
             bool erreur;
@@ -138,6 +141,7 @@ namespace Projet_Bibliothèque_Livre_CD
             log.WriteMessage(DateTime.Now.ToString() + " : " + "Emprunt du livre " + saisieUtilisateur);
             AppuyerSurUneTouchePourContinuer();
         }
+
         public void RamenerUnLivre()
         {
             bool livreRamené = false;
@@ -168,6 +172,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }
+
         public void RechercherLivreParTitre()
         {
             Livre livre;
@@ -302,6 +307,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }
+
         public void EmprunterUnCD()
         {
             bool erreur;
@@ -339,6 +345,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Le CD \"" + saisieUtilisateur + "\" a bien été emprunté");
             Console.ReadLine();
         }
+
         public void RamenerUnCd()
         {
             bool cdRamené = false;
@@ -367,6 +374,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine();
             AppuyerSurUneTouchePourContinuer();
         }
+
         public void SupprimerUnCD()
         {
             do
@@ -416,6 +424,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
             return (GenreDuLivre)Enum.Parse(typeof(GenreDuLivre), saisieUtilisateur);
         }
+
         public Style AfficherEtSaisirStyleDuCD()
         {
             Console.WriteLine("Quel est le genre de l'album?");
@@ -439,6 +448,7 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Appuyez sur une touche pour continuer...");
             Console.ReadKey();
         }
+
         public string EmplacementFichierLog()
         {
             Console.WriteLine("Où voulez vous placer le fichier de log de l'application?");
