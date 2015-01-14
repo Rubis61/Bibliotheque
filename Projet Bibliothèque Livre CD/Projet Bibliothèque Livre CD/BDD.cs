@@ -57,7 +57,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return livres;
         }
 
-        public bool ajouterLivre(Livre livre)
+        public bool AjouterLivre(Livre livre)
         {
             dbConnection.Open();
 
@@ -76,7 +76,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 result = (nbrRowsInserted>=1);
             }
-            catch (Exception e)
+            catch
             {
                 result = false;
             }
@@ -86,20 +86,50 @@ namespace Projet_Bibliothèque_Livre_CD
             return result;
         }
 
-        public bool setNombreEnStock_Livre(string titre, int nombre)
+        public bool EmprunterUnLivre(string titre)
         {
             dbConnection.Open();
 
-            string sqlInsert_Livre = "UPDATE Livre SET Nombre = @Nombre";// WHERE Titre = @Titre";
-            SQLiteCommand command = new SQLiteCommand(sqlInsert_Livre, dbConnection);
-            command.Parameters.Add(new SQLiteParameter("@Titre", titre));
-            command.Parameters.Add(new SQLiteParameter("@Nombre", nombre));
+            string updateLivreEmprunter = "UPDATE Livre SET Nombre = @Nombre, NbEmprunts = NbEmprunts + 1  WHERE Titre = @Titre";    
+            SQLiteCommand command = new SQLiteCommand(updateLivreEmprunter, dbConnection);
+            command.Parameters.AddWithValue("@Nombre", updateLivreEmprunter);
 
-            int result = command.ExecuteNonQuery();
+            bool result = false;
+            try
+            {
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
+            }
+            catch
+            {
+                result = false;
+            }
 
             dbConnection.Close();
+            return result;
 
-            return (result >= 1);
+        }
+        public bool SupprimerUnLivre(string titre)
+        {
+            dbConnection.Open();
+
+            string supprimerLivre = "DELETE FROM Livre WHERE Titre = @Titre";
+            SQLiteCommand command = new SQLiteCommand(supprimerLivre, dbConnection);
+            command.Parameters.AddWithValue("@Titre", titre);
+
+            bool result = false;
+            try
+            {
+                int nbrRowsInserted = command.ExecuteNonQuery();
+                result = (nbrRowsInserted >= 1);
+            }
+            catch
+            {
+                result = false;
+            }
+
+            dbConnection.Close();
+            return result;
         }
         #endregion
 
