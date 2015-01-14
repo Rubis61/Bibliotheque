@@ -469,9 +469,9 @@ namespace Projet_Bibliothèque_Livre_CD
                 Console.Clear();
                 Console.WriteLine("Voulez vous travailler en local où en BDD?");
                 Console.WriteLine("Tapez 'Local' ou 'BDD' pour choisir sur quel support travailler");
-                saisieUtilisateur = Console.ReadLine().ToString();
-            } while (saisieUtilisateur.ToUpper() != "LOCAL" || saisieUtilisateur.ToUpper() != "BDD");
-            if (saisieUtilisateur.ToUpper() == "LOCAL")
+                saisieUtilisateur = Console.ReadLine().ToString().ToUpper();
+            } while (saisieUtilisateur != "LOCAL" && saisieUtilisateur != "BDD");
+            if (saisieUtilisateur == "LOCAL")
             {
                 IsLocal = true;
             }
