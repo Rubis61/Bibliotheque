@@ -267,7 +267,7 @@ namespace Projet_Bibliothèque_Livre_CD
             return CDs;
         }
 
-        public bool ramenerUnCd(CD cd)
+        public bool ramenerUnCd(string titre)
         {
             bool result = false;
             try
@@ -276,7 +276,7 @@ namespace Projet_Bibliothèque_Livre_CD
 
                 string sql_UpdateNombreCd = "UPDATE CD SET Nombre = Nombre - 1, NbEmprunts = NbEmprunts + 1 WHERE CD.Titre =  @Titre";
                 command = new SQLiteCommand(sql_UpdateNombreCd, dbConnection);
-                command.Parameters.AddWithValue("@Titre", cd.Titre);
+                command.Parameters.AddWithValue("@Titre", titre);
 
                 int nbrRowsInserted = command.ExecuteNonQuery();
                 result = (nbrRowsInserted >= 1);

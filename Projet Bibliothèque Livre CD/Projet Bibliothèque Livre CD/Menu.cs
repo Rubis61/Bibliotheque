@@ -13,6 +13,7 @@ namespace Projet_Bibliothèque_Livre_CD
         public LogApplication log = new LogApplication();
         public string saisieUtilisateur { get; set; }
         public static string pathOfLog { get; set; }
+        public bool IsLocal { get; set; }
 
         public void AfficherMenu()
         {
@@ -259,7 +260,14 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                cd = bibliotheque.rechercherCD(saisieUtilisateur);
+                if (IsLocal)
+                {
+                    cd = bibliotheque.rechercherCD(saisieUtilisateur);
+                }
+                else
+                {
+                    cd = bdd.rechercherCD(saisieUtilisateur);
+                }
 
                 Console.WriteLine();
 
@@ -292,14 +300,25 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est l'artiste du CD?");
             string artiste = Console.ReadLine();
 
-            List<Musique> maListe = CD.remplirListeDeMusique();
-            bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
+            List<Musique> listeMusiques = CD.remplirListeDeMusique();
+
+            Style style = AfficherEtSaisirStyleDuCD();
+
+            if (IsLocal)
+            {
+                bibliotheque.ajouterCD(titre, artiste, style, listeMusiques);
+            }
+            else
+            {
+                CD cd = new CD(0, titre, 1, artiste, style, listeMusiques);
+                bdd.ajouterCD(cd);
+            }
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
             Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
             
-            foreach (var musique in maListe)
+            foreach (var musique in listeMusiques)
             {
                 Console.WriteLine(musique.Numero + " - " + musique.Titre);                
             }
@@ -361,7 +380,16 @@ namespace Projet_Bibliothèque_Livre_CD
                 {
                     return;
                 }
-                cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+
+                if (IsLocal)
+                {
+                    cdRamené = bibliotheque.restituerCD(saisieUtilisateur);
+                }
+                else
+                {
+                    cdRamené = bdd.ramenerUnCd(saisieUtilisateur);
+                }
+
                 if (cdRamené == false)
                 {
                     Console.WriteLine("ERREUR : Le CD n'a pas été trouvé ! Veuillez recommencer !");
@@ -388,10 +416,20 @@ namespace Projet_Bibliothèque_Livre_CD
                     return;
                 }
 
-                if (bibliotheque.SupprimerUnCD(saisieUtilisateur) == true)
+                bool result = false;
+                if (IsLocal)
+                {
+                    result = bibliotheque.SupprimerUnCD(saisieUtilisateur);
+                }
+                else
+                {
+                    result = bdd.SupprimerUnCD(saisieUtilisateur);
+                }
+
+                if ( result )
                 {
                     bibliotheque.SupprimerUnCD(saisieUtilisateur);
-                    Console.WriteLine("Le CD a bien était supprimé");
+                    Console.WriteLine("Le CD a bien été supprimé");
                     Console.WriteLine();
                     log.WriteMessage(DateTime.Now.ToString() + " : " + "Suppresion du CD " + saisieUtilisateur);
                     AppuyerSurUneTouchePourContinuer();
