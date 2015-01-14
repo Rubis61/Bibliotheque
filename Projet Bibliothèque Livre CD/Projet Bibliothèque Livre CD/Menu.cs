@@ -353,14 +353,22 @@ namespace Projet_Bibliothèque_Livre_CD
             Console.WriteLine("Quel est l'artiste du CD?");
             string artiste = Console.ReadLine();
 
-            List<Musique> maListe = CD.remplirListeDeMusique();
-            bibliotheque.ajouterCD(titre, artiste, AfficherEtSaisirStyleDuCD(), maListe);
+            Console.WriteLine("Combien de cd disponibles ?");
+            int nombre = 1;
+            while( int.TryParse(Console.ReadLine(), out nombre) ) ;
+
+            List<Musique> listMusiques = CD.remplirListeDeMusique();
+
+            Style style = AfficherEtSaisirStyleDuCD();
+
+            if (IsLocal) bibliotheque.ajouterCD(titre, artiste, style, listMusiques);
+            else bdd.ajouterCD(new CD(0, titre, nombre, artiste, style, listMusiques ));
 
             Console.WriteLine();
             Console.WriteLine("Le CD \"" + titre + "\" de l'artiste \"" + artiste + "\" a bien été");
             Console.WriteLine(" ajouté avec comme style " + saisieUtilisateur.ToUpper() + " et comme musiques : ");
             
-            foreach (var musique in maListe)
+            foreach (var musique in listMusiques)
             {
                 Console.WriteLine(musique.Numero + " - " + musique.Titre);                
             }
